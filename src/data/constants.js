@@ -1,14 +1,26 @@
+// 1. IMPORTE AS IMAGENS DO TOPO (Ajuste o caminho '../assets' conforme a localização do seu arquivo)
+import drEvaImg from '../assets/dra-eva.jpg'; // ou .png, verifique a extensão!
+import karenImg from '../assets/karen.png';
+import lucienneImg from '../assets/lucienne.png';
+import clinic1Img from '../assets/clinica-1.jpg';
+import clinic2Img from '../assets/clinica-2.jpg';
+import clinic3Img from '../assets/clinica-3.jpg';
+
 // Imagens
 export const IMAGES = {
-  drEva: "/assets/dra-eva.jpg", 
-  karen: "/assets/karen.png",     
-  lucienne: "/assets/lucienne.png", 
-  clinic1: "/assets/clinica-1.jpg", 
-  clinic2: "/assets/clinica-2.jpg", 
-  clinic3: "/assets/clinica-3.jpg",
-  // Nova imagem Hero
+  // 2. USE AS VARIÁVEIS IMPORTADAS (sem aspas)
+  drEva: drEvaImg, 
+  karen: karenImg,     
+  lucienne: lucienneImg, 
+  clinic1: clinic1Img, 
+  clinic2: clinic2Img, 
+  clinic3: clinic3Img,
+  
+  // Imagens externas continuam iguais (com aspas)
   heroBg: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2000&auto=format&fit=crop"
 };
+
+// ... resto do código ...
 
 export const TRANSLATIONS = {
   fr: {
