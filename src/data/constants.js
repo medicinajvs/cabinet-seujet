@@ -1,13 +1,23 @@
-// Imagens
+// Captura a URL base do projeto (configurada no vite.config.js ou "/" por padrão)
+const baseUrl = import.meta.env.BASE_URL;
+
 export const IMAGES = {
-  drEva: "/assets/dra-eva.jpg", 
-  karen: "/assets/karen.png",     
-  lucienne: "/assets/lucienne.png", 
-  clinic1: "/assets/clinica-1.jpg", 
-  clinic2: "/assets/clinica-2.jpg", 
-  clinic3: "/assets/clinica-3.jpg",
+  // Note que removemos a "/" antes de "assets", pois o baseUrl já costuma trazer a barra final.
+  // Se o baseUrl for "/", ficará "/assets/...".
+  // Se o baseUrl for "/meu-site/", ficará "/meu-site/assets/...".
+  
+  drEva: `${baseUrl}assets/dra-eva.jpg`, 
+  karen: `${baseUrl}assets/karen.png`,     
+  lucienne: `${baseUrl}assets/lucienne.png`, 
+  clinic1: `${baseUrl}assets/clinica-1.jpg`, 
+  clinic2: `${baseUrl}assets/clinica-2.jpg`, 
+  clinic3: `${baseUrl}assets/clinica-3.jpg`,
+  
+  // Imagens externas continuam iguais
   heroBg: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=2000&auto=format&fit=crop"
 };
+
+// ... O resto do arquivo (TRANSLATIONS, etc) continua igual ...
 
 export const TRANSLATIONS = {
   fr: {
