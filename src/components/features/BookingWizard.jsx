@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { MapPin, Video, Phone, ExternalLink } from 'lucide-react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../config/firebase';
-import { PRIVACY_POLICY_TEXT } from '../../data/constants';
+import { Phone, ExternalLink } from 'lucide-react';
+import { CLOUDFLARE_API_URL } from '../../data/constants';
 
 const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
   const [step, setStep] = useState(1);
@@ -12,29 +10,30 @@ const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
   const availableDoctors = doctors.filter(d => d.bookable);
 
   const handleAction = async (e, type, url) => {
-    e.preventDefault(); // Pausa o clique para salvar primeiro
+    e.preventDefault();
     
     if (user && !user.isAnonymous) {
       try {
-        // GRAVA NA COLEÇÃO 'appointments' DA RAIZ
-        await addDoc(collection(db, 'appointments'), {
-          userId: user.uid,
-          userName: user.displayName || "Patient",
-          doctorName: selectedDoc.name,
-          doctorId: selectedDoc.id,
-          type: type === 'onedoc' ? 'redirection_onedoc' : 'contact_tel',
-          status: 'interested',
-          date: new Date().toISOString().split('T')[0],
-          time: new Date().toLocaleTimeString('fr-CH'),
-          createdAt: serverTimestamp()
+        // Envia o registro de clique para a API do Cloudflare
+        await fetch(`${CLOUDFLARE_API_URL}/appointments`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId: user.uid,
+            userName: user.displayName || "Patient",
+            doctorName: selectedDoc.name,
+            doctorId: selectedDoc.id,
+            type: type === 'onedoc' ? 'redirection_onedoc' : 'contact_tel',
+            status: 'interested',
+            date: new Date().toISOString().split('T')[0],
+            time: new Date().toLocaleTimeString('fr-CH')
+          })
         });
-        console.log("Salvo no histórico!");
       } catch (err) {
-        console.error("Erro ao salvar histórico:", err);
+        console.error("Erro ao salvar histórico no Cloudflare:", err);
       }
     }
 
-    // Agora redireciona
     if (type === 'onedoc') {
       window.open(url, '_blank');
     } else if (type === 'phone') {

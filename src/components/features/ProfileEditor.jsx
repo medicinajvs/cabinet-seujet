@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { User, Phone, MapPin, Save, Calendar } from 'lucide-react';
-import { doc, setDoc } from 'firebase/firestore'; 
 import { updateProfile } from 'firebase/auth';
-import { db } from '../../config/firebase';
+import { CLOUDFLARE_API_URL } from '../../data/constants';
 
 const ProfileEditor = ({ user, userData, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -22,27 +21,24 @@ const ProfileEditor = ({ user, userData, onClose }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      // 1. Atualiza o Nome no Auth (Login)
+      // 1. Atualiza o Nome no Firebase Auth
       if (user.displayName !== formData.displayName) {
         await updateProfile(user, { displayName: formData.displayName });
       }
 
-      // 2. Salva Telefone e Endereço no Firestore (Raiz: 'users')
-      // Isso garante que o App.jsx consiga ler depois
-      const userRef = doc(db, 'users', user.uid);
+      // 2. Envia os dados extras para o Cloudflare Worker
+      const response = await fetch(`${CLOUDFLARE_API_URL}/users`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ uid: user.uid, ...formData })
+      });
       
-      await setDoc(userRef, {
-        displayName: formData.displayName,
-        phone: formData.phone,
-        address: formData.address,
-        birthDate: formData.birthDate,
-        updatedAt: new Date().toISOString()
-      }, { merge: true }); // merge: true não apaga dados antigos
-      
+      if (!response.ok) throw new Error("Erreur de connexion API");
+
       alert("Profil mis à jour !");
       onClose();
     } catch (error) {
-      console.error("Erro ao salvar perfil:", error);
+      console.error("Erro ao salvar perfil no Cloudflare:", error);
       alert("Erreur: " + error.message);
     } finally {
       setLoading(false);
@@ -51,7 +47,7 @@ const ProfileEditor = ({ user, userData, onClose }) => {
 
   return (
     <form onSubmit={handleSave} className="space-y-5 p-2">
-      <p className="text-sm text-gray-500 mb-4">Mettez à jour vos informations personnelles.</p>
+      <p className="text-sm text-gray-500 mb-4">Vos informations sont privées.</p>
 
       <div>
         <label className="block text-sm font-bold text-gray-700 mb-1">Nom Complet</label>

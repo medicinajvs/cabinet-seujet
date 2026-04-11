@@ -6,12 +6,11 @@ import {
 import { 
   signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, setPersistence, browserLocalPersistence
 } from 'firebase/auth';
-import { collection, onSnapshot, updateDoc, doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 
-import { auth, db, googleProvider } from './config/firebase';
+import { auth, googleProvider } from './config/firebase';
 import { 
   DEFAULT_SERVICES, DEFAULT_DOCTORS, DEFAULT_CLINIC_INFO, TRANSLATIONS, IMAGES, 
-  TESTIMONIALS, CLINIC_VALUES, TEACHING_INFO, TECHNICAL_PLATFORM, COMMUNITY_ENGAGEMENTS 
+  TESTIMONIALS, CLINIC_VALUES, TEACHING_INFO, TECHNICAL_PLATFORM, COMMUNITY_ENGAGEMENTS, CLOUDFLARE_API_URL 
 } from './data/constants';
 import { getStatusLabel } from './utils/helpers';
 import { useAppointments } from './hooks/useAppointments';
@@ -33,11 +32,12 @@ const App = () => {
   const [userData, setUserData] = useState(null);
   const [clinicData, setClinicData] = useState(DEFAULT_CLINIC_INFO);
   const [services, setServices] = useState(DEFAULT_SERVICES);
+  
   const [doctors, setDoctors] = useState(DEFAULT_DOCTORS);
   
   const [authInitialized, setAuthInitialized] = useState(false);
   const [profileLoaded, setProfileLoaded] = useState(false);
-  const [doctorsLoaded, setDoctorsLoaded] = useState(false);
+  const [doctorsLoaded, setDoctorsLoaded] = useState(true); 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -55,8 +55,8 @@ const App = () => {
   const [authError, setAuthError] = useState("");
   const [authSuccess, setAuthSuccess] = useState("");
 
-  const isDoctor = !!(user && doctorsLoaded && doctors.some(d => d.email === user.email && d.role === "Ancienne Cheffe de Clinique aux HUG"));
-  const readyToFetch = authInitialized && profileLoaded && doctorsLoaded;
+  const isDoctor = !!(user && doctors.some(d => d.email === user.email && d.role === "Ancienne Cheffe de Clinique aux HUG"));
+  const readyToFetch = authInitialized && profileLoaded;
   const { appointments } = useAppointments(user, isDoctor, readyToFetch);
 
   const heroSlides = [
@@ -103,11 +103,17 @@ const App = () => {
       const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
         setUser(currentUser);
         if (currentUser && !currentUser.isAnonymous) {
-            const userDocRef = doc(db, 'users', currentUser.uid);
-            onSnapshot(userDocRef, (docSnap) => {
-              if (docSnap.exists()) setUserData(docSnap.data());
-              setProfileLoaded(true);
-            });
+            fetch(`${CLOUDFLARE_API_URL}/users/${currentUser.uid}`)
+              .then(res => res.ok ? res.json() : null)
+              .then(data => {
+                if (data) setUserData(data);
+                else setUserData(null);
+              })
+              .catch(err => {
+                console.error("Erro Cloudflare API:", err);
+                setUserData(null);
+              })
+              .finally(() => setProfileLoaded(true));
         } else {
           setUserData(null);
           setProfileLoaded(true);
@@ -118,21 +124,6 @@ const App = () => {
     };
     initAuth();
   }, []);
-
-  useEffect(() => {
-    if (!authInitialized) return;
-    const doctorsCol = collection(db, 'doctors'); // Mudado para a raiz caso as doutoras não carregassem da nuvem
-    // OBS: Como os doutores estao no DEFAULT_DOCTORS, se a nuvem falhar ele usa o default.
-    // O useEffect abaixo tenta buscar da nuvem se existir.
-    const unsubDocs = onSnapshot(doctorsCol, (snap) => {
-      if (!snap.empty) setDoctors(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-      setDoctorsLoaded(true);
-    }, (err) => {
-      console.log("Usando medicos padrão.", err);
-      setDoctorsLoaded(true);
-    });
-    return () => unsubDocs();
-  }, [authInitialized]);
 
   const onLoginSuccess = () => {
     setShowAuthModal(false);
@@ -150,7 +141,12 @@ const App = () => {
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         await updateProfile(cred.user, { displayName: fullName });
         await sendEmailVerification(cred.user);
-        try { await setDoc(doc(db, 'users', cred.user.uid), { email: email, createdAt: serverTimestamp() }); } catch (err) {}
+        
+        fetch(`${CLOUDFLARE_API_URL}/users`, {
+           method: 'POST',
+           body: JSON.stringify({ uid: cred.user.uid, email: email })
+        });
+        
         setAuthSuccess("Vérifiez votre email!"); setTimeout(onLoginSuccess, 1500);
       } else if (authMode === 'reset') {
         await sendPasswordResetEmail(auth, email);
@@ -386,9 +382,10 @@ const App = () => {
                   <div className="w-20 h-1 bg-gray-300 mx-auto"></div>
                </div>
                
+               {/* AQUI FOI CORRIGIDO O ESPAÇO EXTRA ANTES DOS DOIS PONTOS */}
                <div className="max-w-3xl mx-auto mb-12 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex items-center justify-center gap-3 text-gray-700 font-medium">
                   <Globe className="text-[#800020]" size={20} />
-                  <span>{t.sections.multilingual} : Français, English, Português, Hebrew, Română, Kinyarwanda</span>
+                  <span>{t.sections.multilingual}: Français, English, Português, Hebrew, Română, Kinyarwanda</span>
                </div>
 
                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">

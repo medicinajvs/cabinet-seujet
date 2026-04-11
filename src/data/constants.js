@@ -1,12 +1,14 @@
-// Como as imagens estão na pasta "public/assets", usamos apenas o caminho direto com a barra "/"
+// URL DA SUA FUTURA API NO CLOUDFLARE WORKERS
+export const CLOUDFLARE_API_URL = "https://cabinet-api.cabinet-seujet.workers.dev";
+
 export const IMAGES = {
-  drEva: "/assets/dra-eva.jpg", 
-  karen: "/assets/karen.jpg",     
-  lucienne: "/assets/lucienne.jpg", 
-  clinic1: "/assets/clinica-1.jpg", 
-  clinic2: "/assets/clinica-2.jpg", 
-  clinic3: "/assets/clinica-3.jpg",
-  heroBg: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2000&auto=format&fit=crop"
+  drEva: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/dra-eva.jpg", 
+  karen: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/karen.png",     
+  lucienne: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/lucienne.png", 
+  clinic1: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg", 
+  clinic2: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-2.jpg", 
+  clinic3: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-3.jpg",
+  heroBg: "/assets/clinica1.jpg" 
 };
 
 export const TRANSLATIONS = {
@@ -14,7 +16,7 @@ export const TRANSLATIONS = {
     nav: { home: "Accueil", team: "L'Équipe", mission: "Mission & Enseignement", clinic: "Services", login: "Connexion", mySpace: "Mon Espace", book: "Prendre Rendez-vous" },
     hero: { 
       title: "Cabinet Médical du Seujet", 
-      subtitle: "Cabinet médical formateur : transmission et formation des étudiants et internes.", 
+      subtitle: "Cabinet médical formateur: transmission et formation des étudiants et internes.", 
       cta: "Prendre Rendez-vous" 
     },
     carousel: {
@@ -238,5 +240,3 @@ export const TESTIMONIALS = [
   { name: "Flurin Ryffel", text: { fr: "Extrêmement compétente et professionnelle.", en: "Extremely competent and professional." }, rating: 5 },
   { name: "Nicolas Blanchet", text: { fr: "Attentive, minutieuse et professionnelle.", en: "Attentive, thorough, and professional." }, rating: 5 }
 ];
-
-export const PRIVACY_POLICY_TEXT = `POLITIQUE DE CONFIDENTIALITÉ / PRIVACY POLICY\n1. DONNÉES: Nous collectons les données nécessaires à la gestion.\n2. SÉCURITÉ: Vos données sensibles sont stockées de manière cryptée.`;
