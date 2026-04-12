@@ -1,4 +1,4 @@
-// URL DA SUA FUTURA API NO CLOUDFLARE WORKERS
+// URL DA SUA API NO CLOUDFLARE WORKERS
 export const CLOUDFLARE_API_URL = "https://cabinet-api.cabinet-seujet.workers.dev";
 
 export const IMAGES = {
@@ -8,7 +8,7 @@ export const IMAGES = {
   clinic1: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg", 
   clinic2: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-2.jpg", 
   clinic3: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-3.jpg",
-  heroBg: "/assets/clinica1.jpg" 
+  heroBg: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg" 
 };
 
 export const TRANSLATIONS = {
@@ -23,10 +23,10 @@ export const TRANSLATIONS = {
       rubricSubtitle: "Votre bien-être, notre mission.",
       clinicSlide1Title: "Un Espace Moderne",
       clinicSlide1Subtitle: "Dédié à votre santé et à l'inclusion.",
-      clinicSlide2Title: "Équipements de Pointe",
-      clinicSlide2Subtitle: "POCUS, POCT Lab et soins complets.",
-      clinicSlide3Title: "Une Équipe Engagée",
-      clinicSlide3Subtitle: "Formée à l'UNIGE et dévouée.",
+      clinicSlide2Title: "",
+      clinicSlide2Subtitle: "Plusieurs examens peuvent être réalisés directement au cabinet: prises de sang, analyses urinaires, échographies, ECG ainsi que les frottis nasopharyngés (COVID-19, grippe, RSV)",
+      clinicSlide3Title: "",
+      clinicSlide3Subtitle: "Une équipe engagée pour votre santé et votre bien-être",
     },
     doctors: { title: "Notre Équipe", bio: "Biographie", contact: "Contact", book: "Prendre RDV" },
     testimonials: { title: "Témoignages", subtitle: "La confiance de nos patients" },
@@ -77,10 +77,10 @@ export const TRANSLATIONS = {
       rubricSubtitle: "Your well-being, our mission.",
       clinicSlide1Title: "A Modern Space",
       clinicSlide1Subtitle: "Dedicated to your health and inclusion.",
-      clinicSlide2Title: "Cutting-Edge Equipment",
-      clinicSlide2Subtitle: "POCUS, POCT Lab, and complete care.",
-      clinicSlide3Title: "A Committed Team",
-      clinicSlide3Subtitle: "UNIGE-trained and dedicated.",
+      clinicSlide2Title: "",
+      clinicSlide2Subtitle: "Several exams can be performed directly at the practice: blood tests, urinalysis, ultrasounds, ECGs as well as nasopharyngeal swabs (COVID-19, flu, RSV)",
+      clinicSlide3Title: "",
+      clinicSlide3Subtitle: "A team committed to your health and well-being",
     },
     doctors: { title: "Our Team", bio: "Biography", contact: "Contact", book: "Book Now" },
     testimonials: { title: "Testimonials", subtitle: "Our patients' trust" },
@@ -122,34 +122,28 @@ export const TRANSLATIONS = {
   }
 };
 
-export const CLINIC_VALUES = [
-  { title: { fr: "Inclusion", en: "Inclusion" }, icon: "Heart" },
-  { title: { fr: "Humanisme", en: "Humanism" }, icon: "Users" },
-  { title: { fr: "Transmission", en: "Transmission" }, icon: "BookOpen" },
-  { title: { fr: "Médecine de Qualité", en: "Quality Medicine" }, icon: "Star" },
-  { title: { fr: "Médecine Intégrative", en: "Integrative Medicine" }, icon: "Activity" }
-];
-
 export const TEACHING_INFO = {
-  title: { fr: "Enseignement Pré et Post-gradué", en: "Pre and Post-graduate Teaching" },
+  title: { fr: "", en: "" },
   description: {
-    fr: "Le Cabinet du Seujet est un cabinet médical formateur dédié à la transmission du savoir. Nous assurons la formation continue, l'enseignement des étudiants et l'encadrement des résidents/internes. Nous dispensons l'enseignement clinique à l'UNIGE pour les étudiants de 2ème année de Bachelor et 3ème année de Master en Médecine Humaine.",
-    en: "Cabinet du Seujet is a training medical practice dedicated to knowledge transmission. We provide continuous education, student teaching, and resident training. We deliver clinical teaching at UNIGE for 2nd-year Bachelor and 3rd-year Master students in Human Medicine."
+    fr: "Cabinet formateur accueillant des étudiants en médecine de l’UNIGE et des médecins en formation postgraduée, impliqué dans la transmission des connaissances et de la pratique clinique",
+    en: "Training practice welcoming medical students from UNIGE and doctors in postgraduate training, involved in the transmission of knowledge and clinical practice"
   }
 };
 
+// TEXTOS DA SEÇÃO "NOS PRESTATIONS" ATUALIZADOS
 export const DEFAULT_SERVICES = [
-  { iconType: "Stethoscope", title: { fr: "Médecine de Famille & Urgence", en: "Family & Emergency Med" }, description: { fr: "Suivi global, continu et prise en charge des urgences.", en: "Global, continuous care and emergency management." } },
+  { iconType: "Stethoscope", title: { fr: "Médecine de Famille & Urgence Ambulatoire", en: "Family & Ambulatory Emergency Med" }, description: { fr: "Suivi global, continu et prise en charge des urgences.", en: "Global, continuous care and emergency management." } },
   { iconType: "Globe", title: { fr: "Prévention Voyage & Santé Sexuelle", en: "Travel & Sexual Health" }, description: { fr: "Conseils, vaccinations et dépistage.", en: "Advice, vaccinations, and screening." } },
-  { iconType: "BookOpen", title: { fr: "Éducation Thérapeutique", en: "Therapeutic Education" }, description: { fr: "Accompagnement et compréhension des pathologies.", en: "Support and understanding of pathologies." } },
-  { iconType: "Activity", title: { fr: "Réseau de Médecine Intégrative", en: "Integrative Med Network" }, description: { fr: "Approche globale alliant médecine conventionnelle et thérapies complémentaires.", en: "Global approach combining conventional and complementary therapies." } },
-  { iconType: "Users", title: { fr: "Travail en Réseau", en: "Collaborative Network" }, description: { fr: "Collaboration avec les HUG, cliniques privées et médecines alternatives.", en: "Collaboration with HUG, private clinics, and alternative medicines." } },
+  { iconType: "BookOpen", title: { fr: "Éducation Thérapeutique", en: "Therapeutic Education" }, description: { fr: "Information et accompagnement du patient dans la compréhension et la prise en charge de sa pathologie.", en: "Information and patient support in understanding and managing their pathology." } },
+  { iconType: "Activity", title: { fr: "Réseau de Médecine Intégrative", en: "Integrative Med Network" }, description: { fr: "Prise en charge globale intégrant la médecine conventionnelle et certaines approches complémentaires, selon les besoins du patient et les recommandations en vigueur.", en: "Global care integrating conventional medicine and certain complementary approaches, according to patient needs and current recommendations." } },
+  { iconType: "Users", title: { fr: "Travail en Réseau", en: "Collaborative Network" }, description: { fr: "Prise en charge coordonnée et interprofessionnelle.", en: "Coordinated and interprofessional care." } },
   { iconType: "Video", title: { fr: "Téléconsultation", en: "Teleconsultation" }, description: { fr: "Consultations médicales à distance sécurisées.", en: "Secure remote medical consultations." } }
 ];
 
 export const TECHNICAL_PLATFORM = {
   equipment: [
-    { fr: "Laboratoire POCT (Prises de sang, urines, frottis, etc.)", en: "POCT Lab (Blood tests, urine, smears, etc.)" },
+    // TEXTO DO LABORATÓRIO ATUALIZADO
+    { fr: "Examens de laboratoire: prises de sang et analyses d’urine, avec résultats rapides sur place (POCT) et en collaboration avec un laboratoire externe (Viollier).", en: "Laboratory exams: blood tests and urinalysis, with rapid on-site results (POCT) and in collaboration with an external laboratory (Viollier)." },
     { fr: "Échographie POCUS", en: "POCUS Ultrasound" }
   ],
   careRoom: [
@@ -157,7 +151,7 @@ export const TECHNICAL_PLATFORM = {
     { fr: "MAPA", en: "ABPM" },
     { fr: "Oximétrie nocturne", en: "Nocturnal Oximetry" },
     { fr: "Perfusios IV (Vitamines / Fer)", en: "IV Infusions (Vitamins / Iron)" },
-    { fr: "Traitements chroniques", en: "Chronic treatments" },
+    // "Traitements chroniques" foi removido daqui
     { fr: "Soins de plaies & Sutures", en: "Wound Care & Sutures" },
     { fr: "Vaccinations", en: "Vaccinations" }
   ]
@@ -170,15 +164,15 @@ export const DEFAULT_DOCTORS = [
     id: "doc1",
     name: "Dr. Eva Niyibizi",
     email: "niyibizi@hin.ch", 
-    role: "Ancienne Cheffe de Clinique aux HUG", 
+    role: "", 
     bookable: true,
     bookingMethod: "onedoc_or_phone",
     oneDocLink: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
-    specialty: { fr: "Interniste & Urgentiste", en: "Internist & Emergency Physician" },
-    description: { fr: "10 ans d'expérience (HUG, Clinique La Colline, Jérusalem). Médécin consultante aux urgences des HUG.", en: "10 years exp (HUG, Clinique La Colline, Jerusalem). Consultant doctor at HUG emergencies." },
+    specialty: { fr: "", en: "" },
+    description: { fr: "", en: "" },
     biography: {
-      fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG. La Dre Eva Niyibizi possède une double spécialité d'Interniste et Urgentiste avec 10 ans d'expérience acquise aux Hôpitaux Universitaires de Genève (HUG), à la Clinique La Colline et à Jérusalem (Israël). Engagée dans sa communauté, elle est membre active de MedFem, Onesimus, FeminEM et AfCEM. Elle collabore étroitement avec le réseau de soins MEDIX.",
-      en: "Former Head of Clinic at HUG and currently Consultant Doctor at HUG emergencies. Dr. Eva Niyibizi holds a dual specialty as an Internist and Emergency Physician with 10 years of experience gained at Geneva University Hospitals (HUG), Clinique La Colline, and Jerusalem (Israel). Deeply committed to the community, she is an active member of MedFem, Onesimus, FeminEM, and AfCEM. She collaborates closely with the MEDIX care network."
+      fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d’une double spécialisation en médecine interne et médecine d’urgence. Elle bénéficie de plus de 10 ans d’expérience clinique acquise aux Hôpitaux Universitaires de Genève (HUG) et a également exercé au sein de la Clinique La Colline. Elle a par ailleurs complété sa formation à l’international, notamment dans le cadre d’un trauma fellowship à Jérusalem, Israël. Engagement communautaire (MedFem, Onesimus, FeminEM, AfCEM).",
+      en: "Former Head of Clinic at HUG and currently Consultant Doctor at HUG emergencies, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine. She has over 10 years of clinical experience acquired at Geneva University Hospitals (HUG) and has also worked at Clinique La Colline. Furthermore, she completed her international training, notably through a trauma fellowship in Jerusalem, Israel. Community engagement (MedFem, Onesimus, FeminEM, AfCEM)."
     },
     languages: ["Français", "English", "Hebrew", "Kinyarwanda"],
     image: IMAGES.drEva
@@ -193,8 +187,8 @@ export const DEFAULT_DOCTORS = [
     specialty: { fr: "Médecine Interne", en: "Internal Medicine" },
     description: { fr: "3ème année de résidanat (formation post-graduée).", en: "3rd year resident (post-graduate training)." },
     biography: {
-      fr: "Médecin en formation postgraduée en troisième année de médecine interne, je vous accueille en consultation avec écoute attentive, bienveillance et engagement. Titulaire d’une formation médicale réalisée à l’étranger, j’évolue dans un environnement multiculturel et multilingue. Je parle couramment le français, l’anglais et le portugais, avec de bonnes connaissances en roumain.",
-      en: "A doctor in postgraduate training in my third year of internal medicine, I welcome you in consultation with attentive listening, kindness, and commitment. Holding a medical degree obtained abroad, I thrive in a multicultural and multilingual environment. I fluently speak French, English, and Portuguese, with good knowledge of Romanian."
+      fr: "Médecin en formation postgraduée en troisième année de médecine interne, je vous accueille en consultation avec écoute attentive, bienveillance et engagement. Titulaire d’une formation médicale réalisée à l’étranger, j’évolue dans un environnement multiculturel et multilingue. Je parle couramment le français, l’anglais et le portugais, et dispose de notions en roumain.",
+      en: "A doctor in postgraduate training in my third year of internal medicine, I welcome you in consultation with attentive listening, kindness, and commitment. Holding a medical degree obtained abroad, I thrive in a multicultural and multilingual environment. I fluently speak French, English, and Portuguese, and have some notions of Romanian."
     },
     languages: ["Français", "English", "Português", "Română"],
     image: IMAGES.karen
@@ -229,7 +223,7 @@ export const DEFAULT_CLINIC_INFO = {
   emergencyInfo: "En cas d'urgence vitale, composez le 144.",
   policies: "Annulation 24h à l'avance.",
   features: [
-    { fr: "Toute personne est soignée sans discrimination d'ethnie, de sexe, de religion, d'orientation sexuelle, etc.", en: "Every person is treated without discrimination based on ethnicity, gender, religion, sexual orientation, etc." }
+    { fr: "Toute personne est soignée sans discrimination d'ethnie, de sexe, de religion, d'orientation sexuelle.", en: "Every person is treated without discrimination based on ethnicity, gender, religion, sexual orientation." }
   ]
 };
 
