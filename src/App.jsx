@@ -145,7 +145,7 @@ const App = () => {
     } catch (err) { setAuthError(err.message.replace("Firebase: ", "")); }
   };
 
-  if (!authInitialized) return <LoadingScreen />;
+  if (!authInitialized) return <LoadingScreen className="bg-[#A8E6CF]" />;
 
   const DoctorCard = ({ doc }) => (
     <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col hover:border-[#A8E6CF]">
@@ -327,7 +327,6 @@ const App = () => {
                        </div>
                    </div>
                    
-                   {/* NOVO LAYOUT AJUSTADO: ENSINO (Esquerda 2/3) e RÉSEAU (Direita 1/3) */}
                    <div className="grid md:grid-cols-3 gap-8 items-stretch">
                        
                        <div className="md:col-span-2 bg-gray-50 rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 flex flex-col h-full">
@@ -450,8 +449,17 @@ const App = () => {
                    <div>
                      <h3 className="text-2xl font-serif font-bold mb-4 text-[#2B7A5F]">Adresse du cabinet</h3>
                      <p className="text-gray-600 mb-4">Quai du Seujet 14, 1201 Genève</p>
-                     <p className="text-gray-900 font-bold text-lg">+41 22 700 70 70</p>
-                     <p className="text-gray-900 bg-[#A8E6CF] px-3 py-1 rounded w-fit text-sm font-bold mt-2">niyibizi@hin.ch</p>
+                     
+                     {/* NÚMERO DE TELEFONE AGORA É UM LINK CLICÁVEL (tel:) */}
+                     <a href="tel:+41227007070" className="block text-gray-900 font-bold text-lg hover:text-[#2B7A5F] transition-colors w-fit">
+                        +41 22 700 70 70
+                     </a>
+                     
+                     {/* E-MAIL AGORA É UM LINK CLICÁVEL (mailto:) */}
+                     <a href="mailto:niyibizi@hin.ch" className="inline-block text-gray-900 bg-[#A8E6CF] px-3 py-1 rounded text-sm font-bold mt-2 hover:bg-[#88D4B4] transition-colors w-fit">
+                        niyibizi@hin.ch
+                     </a>
+                     
                    </div>
                    
                    <div>
