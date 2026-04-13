@@ -22,11 +22,11 @@ export const TRANSLATIONS = {
     carousel: {
       rubricSubtitle: "Votre bien-être, notre mission.",
       clinicSlide1Title: "Un Espace Moderne",
-      clinicSlide1Subtitle: "Dédié à votre saúde et à l'inclusion.",
+      clinicSlide1Subtitle: "Dédié à votre santé et à l'inclusion.",
       clinicSlide2Title: "",
       clinicSlide2Subtitle: "Plusieurs examens peuvent être réalisés directement au cabinet: prises de sang, analyses urinaires, échographies, ECG ainsi que les frottis nasopharyngés (COVID-19, grippe, RSV)",
       clinicSlide3Title: "",
-      clinicSlide3Subtitle: "Une équipe engagée pour votre saúde et votre bien-être",
+      clinicSlide3Subtitle: "Une équipe engagée pour votre santé et votre bien-être",
     },
     doctors: { title: "Notre Équipe", bio: "Biographie", contact: "Contact", book: "Prendre RDV" },
     testimonials: { title: "Témoignages", subtitle: "La confiance de nos patients" },
@@ -63,7 +63,7 @@ export const TRANSLATIONS = {
       quickLinks: "Liens Rapides", 
       contact: "Contact",
       engagementsTitle: "Engagements",
-      missionText: "Notre mission est d'offrir une médecine de qualidade, inclusive et intégrative, dans un cadre formateur et bienveillant."
+      missionText: "Notre mission est d'offrir une médecine de qualité, inclusive et intégrative, dans un cadre formateur et bienveillant."
     }
   },
   en: {
@@ -130,10 +130,9 @@ export const TEACHING_INFO = {
   }
 };
 
-// TEXTOS DA SEÇÃO "NOS PRESTATIONS" ATUALIZADOS PARA PLURAL (URGENCES)
 export const DEFAULT_SERVICES = [
   { iconType: "Stethoscope", title: { fr: "Médecine de Famille & Urgences Ambulatoires", en: "Family & Ambulatory Emergency Med" }, description: { fr: "Suivi global, continu et prise en charge des urgences.", en: "Global, continuous care and emergency management." } },
-  { iconType: "Globe", title: { fr: "Prévention Voyage & Saúde Sexuelle", en: "Travel & Sexual Health" }, description: { fr: "Conseils, vaccinations et dépistage.", en: "Advice, vaccinations, and screening." } },
+  { iconType: "Globe", title: { fr: "Prévention Voyage & Santé Sexuelle", en: "Travel & Sexual Health" }, description: { fr: "Conseils, vaccinations et dépistage.", en: "Advice, vaccinations, and screening." } },
   { iconType: "BookOpen", title: { fr: "Éducation Thérapeutique", en: "Therapeutic Education" }, description: { fr: "Information et accompagnement du patient dans la compréhension et la prise en charge de sa pathologie.", en: "Information and patient support in understanding and managing their pathology." } },
   { iconType: "Activity", title: { fr: "Réseau de Médecine Intégrative", en: "Integrative Med Network" }, description: { fr: "Prise en charge globale intégrant la médecine conventionnelle et certaines approches complémentaires, selon les besoins du patient et les recommandations en vigueur.", en: "Global care integrating conventional medicine and certain complementary approaches, according to patient needs and current recommendations." } },
   { iconType: "Users", title: { fr: "Travail en Réseau", en: "Collaborative Network" }, description: { fr: "Prise en charge coordonnée et interprofessionnelle.", en: "Coordinated and interprofessional care." } },
@@ -142,7 +141,6 @@ export const DEFAULT_SERVICES = [
 
 export const TECHNICAL_PLATFORM = {
   equipment: [
-    // TEXTO DO LABORATÓRIO ATUALIZADO (Plural Urgences, sem prefixo Examens)
     { fr: "Urgences Ambulatoires: prises de sang et analyses d’urine, avec résultats rapides sur place (POCT) et en collaboration avec un laboratoire externe (Viollier).", en: "Ambulatory Emergency: blood tests and urinalysis, with rapid on-site results (POCT) and in collaboration with an external laboratory (Viollier)." },
     { fr: "Échographie POCUS", en: "POCUS Ultrasound" }
   ],
@@ -151,7 +149,6 @@ export const TECHNICAL_PLATFORM = {
     { fr: "MAPA", en: "ABPM" },
     { fr: "Oximétrie nocturne", en: "Nocturnal Oximetry" },
     { fr: "Perfusios IV (Vitamines / Fer)", en: "IV Infusions (Vitamins / Iron)" },
-    // "Traitements chroniques" foi removido daqui
     { fr: "Soins de plaies & Sutures", en: "Wound Care & Sutures" },
     { fr: "Vaccinations", en: "Vaccinations" }
   ]
@@ -162,7 +159,7 @@ export const COMMUNITY_ENGAGEMENTS = ["MedFem", "Onesimus", "FeminEM", "AfCEM"];
 export const DEFAULT_DOCTORS = [
   {
     id: "doc1",
-    name: "Dre. Eva Niyibizi", // Dre. adicionado
+    name: "Dre. Eva Niyibizi",
     email: "niyibizi@hin.ch", 
     role: "", 
     bookable: true,
@@ -179,7 +176,7 @@ export const DEFAULT_DOCTORS = [
   },
   {
     id: "team1",
-    name: "Dre. Karen Brechbühl", // Dre. adicionado
+    name: "Dre. Karen Brechbühl",
     email: "niyibizi@hin.ch", 
     role: "Médecin", 
     bookable: true,
@@ -187,7 +184,7 @@ export const DEFAULT_DOCTORS = [
     specialty: { fr: "Médecine Interne", en: "Internal Medicine" },
     description: { fr: "3ème année de résidanat (formation post-graduée).", en: "3rd year resident (post-graduate training)." },
     biography: {
-      fr: "Médecin en formation postgraduée en troisième année de médecine interne, je vous accueille en consultation avec écoute attentive, bienveillance et engagement. Titulaire d’une formation médicale réalisée à l’étranger, j’évolue dans un environnement multiculturel et multilingue. Je parle couramment le français, l’anglais et le portugais, e dispose de notions en roumain.",
+      fr: "Médecin en formation postgraduée en troisième année de médecine interne, je vous accueille en consultation avec écoute attentive, bienveillance et engagement. Titulaire d’une formation médicale réalisée à l’étranger, j’évolue dans un environnement multiculturel et multilingue. Je parle couramment le français, l’anglais et le portugais, et dispose de notions en roumain.",
       en: "A doctor in postgraduate training in my third year of internal medicine, I welcome you in consultation with attentive listening, kindness, and commitment. Holding a medical degree obtained abroad, I thrive in a multicultural and multilingual environment. I fluently speak French, English, and Portuguese, and have some notions of Romanian."
     },
     languages: ["Français", "English", "Português", "Română"],
