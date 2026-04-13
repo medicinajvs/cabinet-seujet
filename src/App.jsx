@@ -261,8 +261,6 @@ const App = () => {
                     ) : (
                         <button onClick={() => { setAuthMode('login'); setShowAuthModal(true); }} className={`font-bold text-sm transition ${scrolled ? 'text-gray-800 hover:text-[#2B7A5F]' : 'text-white hover:text-gray-200 drop-shadow-md'}`}>{t.nav.login}</button>
                     )}
-                    
-                    <button onClick={() => setShowBookingModal(true)} className="bg-[#A8E6CF] text-gray-900 px-5 py-2.5 rounded-full font-bold shadow hover:bg-[#88D4B4] transition">{t.nav.book}</button>
                 </div>
                 
                 <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`md:hidden ${scrolled ? 'text-gray-800' : 'text-white'}`}><Menu /></button>
@@ -274,7 +272,6 @@ const App = () => {
                   <a href="#mission" onClick={() => setIsMenuOpen(false)}>{t.nav.mission}</a>
                   <a href="#team" onClick={() => setIsMenuOpen(false)}>{t.nav.team}</a>
                   <button onClick={() => { setShowAuthModal(true); setIsMenuOpen(false); }} className="text-left font-bold text-[#2B7A5F]">{t.nav.login}</button>
-                  <button onClick={() => { setShowBookingModal(true); setIsMenuOpen(false); }} className="bg-[#A8E6CF] text-gray-900 py-3 rounded text-center w-full font-bold">{t.nav.book}</button>
                 </div>
               )}
            </nav>
@@ -330,28 +327,37 @@ const App = () => {
                        </div>
                    </div>
                    
-                   <div className="grid md:grid-cols-2 gap-12 items-center bg-gray-50 rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100">
-                       <div>
+                   {/* NOVO LAYOUT AJUSTADO: ENSINO (Esquerda 2/3) e RÉSEAU (Direita 1/3) */}
+                   <div className="grid md:grid-cols-3 gap-8 items-stretch">
+                       
+                       <div className="md:col-span-2 bg-gray-50 rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 flex flex-col h-full">
                            <h3 className="text-xl font-bold text-[#2B7A5F] mb-4 flex items-center gap-2"><BookOpen/> {t.sections.teaching}</h3>
                            
-                           <p className="text-gray-700 leading-relaxed text-lg">
+                           <p className="text-gray-700 leading-relaxed text-lg mb-8 max-w-xl">
                                {getText(TEACHING_INFO.description)}
                            </p>
                            
-                           <div className="mt-8 bg-[#2B7A5F] text-white px-8 py-5 rounded-xl shadow-lg font-bold text-center inline-block border-2 border-[#A8E6CF]">
-                               <span className="block text-lg">Médecin en formation</span>
-                               <span className="block text-xl text-[#A8E6CF] mt-1">postgraduée</span>
+                           <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+                               <div className="bg-[#2B7A5F] text-white px-6 py-5 rounded-xl shadow font-bold text-center flex-1 flex flex-col justify-center items-center border border-[#A8E6CF]">
+                                   <span className="block text-base">Médecin en formation</span>
+                                   <span className="block text-lg text-[#A8E6CF] mt-1">postgraduée</span>
+                               </div>
+                               <div className="flex flex-col gap-4 flex-1">
+                                   <div className="bg-[#2B7A5F] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#A8E6CF] text-sm flex-1 flex items-center justify-center">
+                                       étudiant 3ème année Master
+                                   </div>
+                                   <div className="bg-[#2B7A5F] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#A8E6CF] text-sm flex-1 flex items-center justify-center">
+                                       étudiant 2ème année Bachelor
+                                   </div>
+                               </div>
                            </div>
                        </div>
-                       <div>
-                           <h3 className="text-xl font-bold text-[#2B7A5F] mb-4 flex items-center gap-2"><Heart/> {t.sections.community}</h3>
-                           <div className="flex flex-wrap gap-3">
-                               {COMMUNITY_ENGAGEMENTS.map(eng => (
-                                   <span key={eng} className="bg-[#A8E6CF] text-gray-900 px-4 py-2 rounded-lg font-bold text-sm shadow-sm">{eng}</span>
-                               ))}
-                               <span className="bg-gray-800 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-sm">Réseau MEDIX</span>
-                           </div>
+                       
+                       <div className="md:col-span-1 bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center h-full">
+                           <h3 className="text-xl font-bold text-[#2B7A5F] mb-6 flex items-center justify-center gap-2"><Heart/> {t.sections.community}</h3>
+                           <span className="bg-gray-800 text-white px-8 py-3 rounded-lg font-bold text-sm shadow-md border border-gray-700 w-full hover:bg-gray-700 transition">Réseau MEDIX</span>
                        </div>
+                       
                    </div>
                </div>
            </section>
@@ -397,8 +403,8 @@ const App = () => {
                                </h3>
                                <ul className="space-y-4">
                                    {TECHNICAL_PLATFORM.equipment.map((eq, i) => (
-                                       <li key={i} className="flex items-center gap-3 text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                                         <Activity size={20} className="text-[#2B7A5F]"/> {getText(eq)}
+                                       <li key={i} className="flex items-center gap-3 text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm text-sm">
+                                         <Activity size={20} className="text-[#2B7A5F] flex-shrink-0"/> {getText(eq)}
                                        </li>
                                    ))}
                                </ul>
@@ -438,23 +444,21 @@ const App = () => {
               </div>
            </section>
 
-           <footer className="bg-[#0F172A] text-white pt-16 pb-8 w-full max-w-full overflow-hidden">
+           <footer className="bg-white text-gray-800 pt-16 pb-8 w-full max-w-full overflow-hidden border-t border-gray-100">
               <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                    <div>
-                     {/* TÍTULO ATUALIZADO */}
-                     <h3 className="text-2xl font-serif font-bold mb-4">Adresse du cabinet</h3>
-                     <p className="text-gray-400 mb-4">Quai du Seujet 14, 1201 Genève</p>
-                     <p className="text-white font-bold text-lg">+41 22 700 70 70</p>
+                     <h3 className="text-2xl font-serif font-bold mb-4 text-[#2B7A5F]">Adresse du cabinet</h3>
+                     <p className="text-gray-600 mb-4">Quai du Seujet 14, 1201 Genève</p>
+                     <p className="text-gray-900 font-bold text-lg">+41 22 700 70 70</p>
                      <p className="text-gray-900 bg-[#A8E6CF] px-3 py-1 rounded w-fit text-sm font-bold mt-2">niyibizi@hin.ch</p>
                    </div>
                    
                    <div>
-                       <h4 className="font-bold mb-4 text-gray-200">{t.footer.engagementsTitle}</h4>
-                       <p className="text-gray-400 text-sm leading-relaxed pr-6">
+                       <h4 className="font-bold mb-4 text-[#2B7A5F]">{t.footer.engagementsTitle}</h4>
+                       <p className="text-gray-600 text-sm leading-relaxed pr-6">
                          {t.footer.missionText}
                        </p>
-                       {/* O TEXTO DE COPYRIGHT FOI REMOVIDO DAQUI */}
                    </div>
 
                    <div className="h-48 bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700">
