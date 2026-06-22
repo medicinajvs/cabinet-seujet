@@ -168,8 +168,8 @@ export const DEFAULT_DOCTORS = [
     specialty: { fr: "", en: "" },
     description: { fr: "", en: "" },
     biography: {
-      fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d’une double spécialisation en médecine interne et médecine d’urgence. Elle bénéficie de plus de 10 ans d’expérience clinique acquise aux Hôpitaux Universitaires de Genève (HUG) et a également exercé au sein de la Clinique La Colline. Elle a par ailleurs complété sa formation à l’international, notamment dans le cadre d’un trauma fellowship à Jérusalem, Israël. Engagement communautaire (MedFem, Onesimus, FeminEM, AfCEM).",
-      en: "Former Head of Clinic at HUG and currently Consultant Doctor at HUG emergencies, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine. She has over 10 years of clinical experience acquired at Geneva University Hospitals (HUG) and has also worked at Clinique La Colline. Furthermore, she completed her international training, notably through a trauma fellowship in Jerusalem, Israel. Community engagement (MedFem, Onesimus, FeminEM, AfCEM)."
+      fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d’une double spécialisation en médecine interne et médecine d’urgence. Elle bénéficie de plus de 10 ans d’expérience clinique acquise aux Hôpitaux Universitaires de Genève (HUG) et a également exercé au sein de la Clinique La Colline. Elle a par ailleurs complété sa formation à l’international, notamment dans le cadre d’un trauma fellowship à Jérusalem, Israël. Engagement communautaire (MedFem, Onesimus, FeminEM, AfCEM). Les valeurs qui guident mes prises en charge sont : inclusion, santé holistique, médecine personnalisée, flexibilité, respect et écoute.",
+      en: "Former Head of Clinic at HUG and currently Consultant Doctor in the HUG emergency department, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine. She has more than 10 years of clinical experience acquired at Geneva University Hospitals (HUG) and has also worked at Clinique La Colline. She also completed part of her training internationally, notably through a trauma fellowship in Jerusalem, Israel. Community engagement (MedFem, Onesimus, FeminEM, AfCEM). The values that guide my care are: inclusion, holistic health, personalized medicine, flexibility, respect, and attentive listening."
     },
     languages: ["Français", "English", "Hebrew", "Kinyarwanda"],
     image: IMAGES.drEva
@@ -214,6 +214,25 @@ export const DEFAULT_CLINIC_INFO = {
   },
   address: "Quai du Seujet 14, 1201 Genève",
   phone: "+41 22 700 70 70",
+  fax: "+41 XX XXX XX XX", // TROCAR PELO FAX REAL
+  oneDocUrl: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
+  labPartners: ["Viollier", "Unilabs", "Dianalabs", "MGD"],
+  paymentInfo: {
+    fr: "Paiement par carte ou directement auprès de l’assurance maladie.",
+    en: "Payment by card or directly through health insurance."
+  },
+  bookingInfo: {
+    fr: "La prise de rendez-vous est possible directement via OneDoc.",
+    en: "Appointments can be booked directly via OneDoc."
+  },
+  accessibilityInfo: {
+    fr: "Accès PMR et transports publics à proximité (bus / tram).",
+    en: "PMR access and nearby public transport (bus / tram)."
+  },
+  inclusionInfo: {
+    fr: "Environnement inclusif et bienveillant.",
+    en: "Inclusive and welcoming environment."
+  },
   email: "niyibizi@hin.ch", 
   mapEmbedUrl: "https://maps.google.com/maps?q=Quai+du+Seujet+14,+1201+Genève&t=&z=15&ie=UTF8&iwloc=&output=embed",
   openingHours: "Lun-Ven: 08:00 - 18:00",

@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 import { Phone, ExternalLink } from 'lucide-react';
 import { CLOUDFLARE_API_URL } from '../../data/constants';
 
-const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
-  const [step, setStep] = useState(1);
-  const [selectedDoc, setSelectedDoc] = useState(null);
+// Adicionamos a prop 'preselectedDoctorId'
+const BookingWizard = ({ doctors, user, onClose, lang, preselectedDoctorId }) => {
+  
+  // Procuramos a médica pelo ID passado
+  const initialDoctor = preselectedDoctorId 
+    ? doctors.find(doc => doc.id === preselectedDoctorId) 
+    : null;
+
+  // Se já veio uma médica, o passo inicial é o 2. Senão, é o 1.
+  const [step, setStep] = useState(initialDoctor ? 2 : 1);
+  
+  // Já iniciamos o estado com a médica encontrada
+  const [selectedDoc, setSelectedDoc] = useState(initialDoctor);
+
+  // ... mantenha o resto do seu código igual daqui para baixo
 
   const t = (fr, en) => (lang === 'fr' ? fr : en);
   const availableDoctors = doctors.filter(d => d.bookable);
@@ -13,9 +25,14 @@ const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
     e.preventDefault();
     if (user && !user.isAnonymous) {
       try {
+        const token = await user.getIdToken(); // Pega o token
+        
         await fetch(`${CLOUDFLARE_API_URL}/appointments`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Envia o token
+          },
           body: JSON.stringify({
             userId: user.uid,
             userName: user.displayName || "Patient",
@@ -42,7 +59,7 @@ const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
             {availableDoctors.map((doc) => (
               <div 
                 key={doc.id} onClick={() => { setSelectedDoc(doc); setStep(2); }} 
-                className="cursor-pointer bg-white p-6 rounded-xl shadow-md border-2 border-transparent hover:border-[#A8E6CF] transition w-full sm:w-64 flex flex-col items-center"
+                className="cursor-pointer bg-white p-6 rounded-xl shadow-md border-2 border-transparent hover:border-[#2B7A5F] transition w-full sm:w-64 flex flex-col items-center"
               >
                 <img src={doc.image} className="w-24 h-24 rounded-full object-cover mb-4 shadow-sm" alt={doc.name} />
                 {/* O NOME JÁ CONTÉM DRE. NAS CONSTANTES */}
@@ -63,7 +80,7 @@ const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
 
           <div className="bg-gray-50 p-8 rounded-xl max-w-md mx-auto space-y-6 border border-gray-100">
              {selectedDoc.bookingMethod === 'onedoc_or_phone' && (
-                 <button onClick={(e) => handleAction(e, 'onedoc', selectedDoc.oneDocLink)} className="flex items-center justify-center gap-3 w-full bg-[#A8E6CF] text-gray-900 py-4 rounded-xl font-bold hover:bg-[#88D4B4] transition shadow-lg">
+                 <button onClick={(e) => handleAction(e, 'onedoc', selectedDoc.oneDocLink)} className="flex items-center justify-center gap-3 w-full bg-[#2B7A5F] text-white py-4 rounded-xl font-bold hover:bg-[#245F4B] transition shadow-lg">
                     <ExternalLink size={20} /> {t("Réserver sur OneDoc", "Book on OneDoc")}
                  </button>
              )}
@@ -76,7 +93,9 @@ const BookingWizard = ({ doctors, user, onClose, lang = 'fr' }) => {
                  </button>
              </div>
           </div>
-          <button onClick={() => setStep(1)} className="text-gray-500 hover:text-gray-800 underline text-sm">{t("Retour", "Back")}</button>
+          {!preselectedDoctorId && (
+            <button onClick={() => setStep(1)} className="text-gray-500 hover:text-gray-800 underline text-sm">{t("Retour", "Back")}</button>
+          )}
         </div>
       )}
     </div>

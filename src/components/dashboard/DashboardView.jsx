@@ -6,7 +6,7 @@ import { TRANSLATIONS } from '../../data/constants';
 
 const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEditProfile, onBookNew, onViewAppointment, lang }) => {
   
-  const t = TRANSLATIONS[lang || 'fr'].dashboard; // Usa traduções
+  const t = TRANSLATIONS[lang || 'fr'].dashboard;
 
   const handleLogout = () => {
     signOut(auth).then(onClose);
@@ -18,7 +18,7 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
         
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-serif font-bold text-gray-800">{t.title}</h1>
-          <button onClick={onClose} className="text-sm text-gray-500 hover:text-[#800020] flex items-center gap-1 font-medium">
+          <button onClick={onClose} className="text-sm text-gray-500 hover:text-[#2B7A5F] flex items-center gap-1 font-medium">
             &larr; {t.backHome}
           </button>
         </div>
@@ -28,33 +28,53 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
           {/* PERFIL */}
           <div className="lg:col-span-1 space-y-6">
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              
+              {/* EXIBIÇÃO DA FOTO AQUI */}
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 bg-[#800020] text-white rounded-full flex items-center justify-center shadow-md">
-                  <User size={28} />
-                </div>
+                {user?.photoURL || userData?.photoURL ? (
+                  <img 
+                    src={user.photoURL || userData.photoURL} 
+                    alt="Profil" 
+                    className="w-14 h-14 rounded-full object-cover shadow-md border border-gray-200 shrink-0" 
+                  />
+                ) : (
+                  <div className="w-14 h-14 bg-[#2B7A5F] text-white rounded-full flex items-center justify-center shadow-md shrink-0">
+                    <User size={28} />
+                  </div>
+                )}
                 <div className="overflow-hidden">
                   <p className="font-bold text-gray-800 truncate">{user.displayName || t.userDefault}</p>
                   <p className="text-xs text-gray-500 truncate">{user.email}</p>
                 </div>
               </div>
 
-              <div className="mb-6 space-y-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg border border-gray-100">
+              <div className="mb-6 space-y-4 text-sm text-gray-600 bg-gray-50 p-4 rounded-xl border border-gray-100">
                  {userData?.phone && (
-                   <div className="flex items-center gap-2"><Phone size={14}/> {userData.phone}</div>
+                   <div className="flex items-center gap-3">
+                     <Phone size={18} className="text-[#2B7A5F] shrink-0" /> 
+                     <span className="font-medium text-gray-700">{userData.phone}</span>
+                   </div>
                  )}
                  {userData?.address && (
-                   <div className="flex items-center gap-2"><MapPin size={14}/> {userData.address}</div>
+                   <div className="flex items-start gap-3">
+                     <MapPin size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" /> 
+                     <span className="whitespace-pre-line leading-relaxed text-gray-700">
+                       {userData.address}
+                     </span>
+                   </div>
                  )}
                  {!userData?.phone && !userData?.address && (
-                   <span className="text-xs italic text-gray-400">{t.incompleteProfile}</span>
+                   <div className="text-center py-2">
+                     <span className="text-xs italic text-gray-400">{t.incompleteProfile}</span>
+                   </div>
                  )}
               </div>
               
               <nav className="space-y-2">
-                <button className="w-full flex items-center gap-3 px-4 py-2 bg-gray-50 text-[#800020] font-bold rounded-lg border border-gray-100">
+                <button className="w-full flex items-center gap-3 px-4 py-2 bg-gray-50 text-[#2B7A5F] font-bold rounded-lg border border-gray-100">
                   <Calendar size={18} /> {t.historyBtn}
                 </button>
-                <button onClick={onEditProfile} className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-[#800020] rounded-lg transition">
+                <button onClick={onEditProfile} className="w-full flex items-center gap-3 px-4 py-2 text-gray-600 hover:bg-gray-50 hover:text-[#2B7A5F] rounded-lg transition">
                   <Edit3 size={18} /> {t.editProfileBtn}
                 </button>
                 <div className="pt-4 mt-4 border-t border-gray-100">
@@ -65,11 +85,11 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
               </nav>
             </div>
 
-            <div className="bg-[#800020] text-white p-6 rounded-2xl shadow-lg text-center">
+            <div className="bg-[#2B7A5F] text-white p-6 rounded-2xl shadow-lg text-center">
               <h3 className="font-bold text-lg mb-4">{t.needApptTitle}</h3>
               <button 
                 onClick={onBookNew} 
-                className="w-full py-3 bg-white text-[#800020] rounded-lg font-bold hover:bg-gray-100 transition shadow-sm"
+                className="w-full py-3 bg-white text-[#2B7A5F] rounded-lg font-bold hover:bg-gray-100 transition shadow-sm"
               >
                 {t.bookApptBtn}
               </button>
@@ -81,7 +101,7 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 min-h-[400px]">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
-                  <Calendar className="text-[#800020]" /> {t.historyTitle}
+                  <Calendar className="text-[#2B7A5F]" /> {t.historyTitle}
                 </h2>
               </div>
 
@@ -96,9 +116,9 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
               ) : (
                 <div className="space-y-4">
                   {appointments.map((appt) => (
-                    <div key={appt.id} className="border border-gray-100 p-5 rounded-xl hover:border-[#800020] transition bg-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div key={appt.id} className="border border-gray-100 p-5 rounded-xl hover:border-[#2B7A5F] transition bg-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                       <div className="flex gap-4 items-center">
-                        <div className="w-12 h-12 bg-red-50 text-[#800020] rounded-full flex items-center justify-center shrink-0">
+                        <div className="w-12 h-12 bg-green-50 text-[#2B7A5F] rounded-full flex items-center justify-center shrink-0">
                            {appt.type === 'redirection_onedoc' ? <ExternalLink size={20}/> : <Phone size={20}/>}
                         </div>
                         <div>

@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Allura&display=swap');
+
+.brand-script {
+  font-family: 'Allura', cursive;
+}
+
 /* TECNOLOGIA DE TEMAS DINÂMICOS 
   Baseada na análise de CSS Variables + Scroll
 */
