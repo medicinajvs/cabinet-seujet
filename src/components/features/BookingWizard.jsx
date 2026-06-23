@@ -78,21 +78,37 @@ const BookingWizard = ({ doctors, user, onClose, lang, preselectedDoctorId }) =>
              <h4 className="text-xl font-bold text-gray-800">{t("Prendre rendez-vous avec", "Book with")} {selectedDoc.name}</h4>
           </div>
 
-          <div className="bg-gray-50 p-8 rounded-xl max-w-md mx-auto space-y-6 border border-gray-100">
+          {/* ---> INÍCIO DA SUBSTITUIÇÃO <--- */}
+          <div className="flex flex-col items-center w-full mt-4 max-w-2xl mx-auto">
+             
+             {/* O iframe só aparece se a médica aceitar OneDoc */}
              {selectedDoc.bookingMethod === 'onedoc_or_phone' && (
-                 <button onClick={(e) => handleAction(e, 'onedoc', selectedDoc.oneDocLink)} className="flex items-center justify-center gap-3 w-full bg-[#2B7A5F] text-white py-4 rounded-xl font-bold hover:bg-[#245F4B] transition shadow-lg">
-                    <ExternalLink size={20} /> {t("Réserver sur OneDoc", "Book on OneDoc")}
-                 </button>
+               <div className="w-full rounded-xl border border-gray-200 overflow-hidden mb-6 bg-white shadow-sm">
+                  <iframe 
+                    className="od-widget" 
+                    id="od-widget-5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                    src="https://www.onedoc.ch/fr/widget/5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                    frameBorder="0" 
+                    style={{ width: '100%', height: '420px' }}
+                  ></iframe>
+               </div>
              )}
-             {selectedDoc.bookingMethod === 'onedoc_or_phone' && <div className="text-gray-400 text-sm font-medium">{t("OU", "OR")}</div>}
 
-             <div className="text-gray-800">
-                 <p className="mb-2 text-sm text-gray-500">{t("Par téléphone au cabinet :", "Call the practice :")}</p>
-                 <button onClick={(e) => handleAction(e, 'phone', "tel:+41227007070")} className="text-2xl font-bold text-gray-800 flex items-center justify-center gap-2 hover:text-[#2B7A5F] transition w-full">
-                    <Phone size={24} className="text-[#2B7A5F]" /> +41 22 700 70 70
-                 </button>
+             {/* Bloco Elegante para o Telefone (Aparece para todos) */}
+             <div className="flex flex-col items-center justify-center p-5 bg-gray-50 rounded-xl w-full border border-gray-100">
+                 <span className="text-[11px] text-gray-500 mb-2 uppercase tracking-widest font-bold">
+                   {t("Assistance téléphonique", "Phone Assistance")}
+                 </span>
+                 <div className="flex items-center gap-3 text-gray-800 font-bold text-2xl">
+                    <Phone size={22} className="text-[#2B7A5F]" />
+                    {/* Mantivemos o handleAction como botão para sua API registrar o contato no painel! */}
+                    <button onClick={(e) => handleAction(e, 'phone', "tel:+41227007070")} className="hover:text-[#2B7A5F] transition-colors">
+                      +41 22 700 70 70
+                    </button>
+                 </div>
              </div>
           </div>
+          {/* ---> FIM DA SUBSTITUIÇÃO <--- */}
           {!preselectedDoctorId && (
             <button onClick={() => setStep(1)} className="text-gray-500 hover:text-gray-800 underline text-sm">{t("Retour", "Back")}</button>
           )}

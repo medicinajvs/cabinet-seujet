@@ -8,7 +8,8 @@ export const IMAGES = {
   clinic1: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg", 
   clinic2: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-2.jpg", 
   clinic3: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-3.jpg",
-  heroBg: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg" 
+  heroBg: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/clinica-1.jpg",
+  drCarole: "https://pub-f8f14c95b0824560b05131ba913cd2c5.r2.dev/assets/dra-carole.jpeg"
 };
 
 export const TRANSLATIONS = {
@@ -154,25 +155,42 @@ export const TECHNICAL_PLATFORM = {
   ]
 };
 
-export const COMMUNITY_ENGAGEMENTS = ["MedFem", "Onesimus", "FeminEM", "AfCEM"];
+export const COMMUNITY_ENGAGEMENTS = ["MedFem", "Onesimus", "FeminEM", "AfCEM", "Medix"];
 
 export const DEFAULT_DOCTORS = [
   {
     id: "doc1",
     name: "Dre. Eva Niyibizi",
     email: "niyibizi@hin.ch", 
-    role: "", 
-    bookable: true,
+    role: "Absente (Remplacée par Dre Carole Rabetokotany)", 
+    bookable: false,
     bookingMethod: "onedoc_or_phone",
     oneDocLink: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
-    specialty: { fr: "", en: "" },
-    description: { fr: "", en: "" },
+    specialty: { fr: "Médecine Interne & d'Urgence", en: "Internal & Emergency Medicine" },
+    description: { fr: "Médecin FMH, SSMUS et Médecin Consultante aux HUG.", en: "FMH, SSMUS Doctor and Consultant Doctor at HUG." },
     biography: {
       fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d’une double spécialisation en médecine interne et médecine d’urgence. Elle bénéficie de plus de 10 ans d’expérience clinique acquise aux Hôpitaux Universitaires de Genève (HUG) et a également exercé au sein de la Clinique La Colline. Elle a par ailleurs complété sa formation à l’international, notamment dans le cadre d’un trauma fellowship à Jérusalem, Israël. Engagement communautaire (MedFem, Onesimus, FeminEM, AfCEM). Les valeurs qui guident mes prises en charge sont : inclusion, santé holistique, médecine personnalisée, flexibilité, respect et écoute.",
       en: "Former Head of Clinic at HUG and currently Consultant Doctor in the HUG emergency department, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine. She has more than 10 years of clinical experience acquired at Geneva University Hospitals (HUG) and has also worked at Clinique La Colline. She also completed part of her training internationally, notably through a trauma fellowship in Jerusalem, Israel. Community engagement (MedFem, Onesimus, FeminEM, AfCEM). The values that guide my care are: inclusion, holistic health, personalized medicine, flexibility, respect, and attentive listening."
     },
     languages: ["Français", "English", "Hebrew", "Kinyarwanda"],
     image: IMAGES.drEva
+  },
+  {
+    id: "doc2",
+    name: "Dre. Carole Rabetokotany",
+    email: "niyibizi@hin.ch", 
+    role: "Médecin remplaçante (04.05.2026 - 31.10.2026)", 
+    bookable: true,
+    bookingMethod: "onedoc_or_phone",
+    oneDocLink: "https://www.onedoc.ch/fr/medecin-generaliste/geneve/pc3sn/dr-carole-rabetokotany",
+    specialty: { fr: "FMH Médecin Praticienne", en: "FMH General Practitioner" },
+    description: { fr: "Diplôme médical: Faculté de Médecine de Paris", en: "Medical diploma: Faculty of Medicine of Paris" },
+    biography: {
+      fr: "Diplômée de la Faculté de Médecine de Paris. Intérêts : micronutrition, santé mentale, médecine préventive et intégrative. Elle reçoit les enfants, adolescents et adultes dans une approche attentive et adaptée.", // <-- ATUALIZADO com o público atendido
+      en: "Graduate of the Faculty of Medicine of Paris. Interests: micronutrition, mental health, preventative and integrative medicine. She receives children, adolescents, and adults in an attentive and tailored approach." // <-- ATUALIZADO
+    },
+    languages: ["Français", "English", "Malgache"],
+    image: IMAGES.drCarole
   },
   {
     id: "team1",
@@ -214,7 +232,7 @@ export const DEFAULT_CLINIC_INFO = {
   },
   address: "Quai du Seujet 14, 1201 Genève",
   phone: "+41 22 700 70 70",
-  fax: "+41 XX XXX XX XX", // TROCAR PELO FAX REAL
+  fax: "+41 22 700 70 72",
   oneDocUrl: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
   labPartners: ["Viollier", "Unilabs", "Dianalabs", "MGD"],
   paymentInfo: {
@@ -222,16 +240,16 @@ export const DEFAULT_CLINIC_INFO = {
     en: "Payment by card or directly through health insurance."
   },
   bookingInfo: {
-    fr: "La prise de rendez-vous est possible directement via OneDoc.",
-    en: "Appointments can be booked directly via OneDoc."
+    fr: "La prise de rendez-vous est possible directement via OneDoc. Le cabinet informe actuellement ne plus pouvoir accepter de nouveaux patients avant janvier 2027.",
+    en: "Appointments can be booked directly via OneDoc. The clinic informs that it is currently unable to accept new patients before January 2027."
   },
   accessibilityInfo: {
     fr: "Accès PMR et transports publics à proximité (bus / tram).",
     en: "PMR access and nearby public transport (bus / tram)."
   },
   inclusionInfo: {
-    fr: "Environnement inclusif et bienveillant.",
-    en: "Inclusive and welcoming environment."
+    fr: "Tous les patients sont les bienvenus pour parler de leur santé dans un environnement respectueux et déontologique, sans distinction de race, de genre, d'orientation religieuse ou sexuelle.",
+    en: "All patients are welcome to discuss their health in a respectful and deontological environment without distinction of race, gender, religious or sexual orientation."
   },
   email: "niyibizi@hin.ch", 
   mapEmbedUrl: "https://maps.google.com/maps?q=Quai+du+Seujet+14,+1201+Genève&t=&z=15&ie=UTF8&iwloc=&output=embed",

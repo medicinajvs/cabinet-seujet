@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, Calendar, Phone, Mail, MapPin,
-  User, ExternalLink, ChevronUp, ChevronDown, MessageCircle, FileText, Lock, Save, Edit3, Globe, Heart, CheckCircle, ArrowRight, ArrowLeft, BookOpen, Star, Activity, Monitor, ChevronLeft, ChevronRight, Accessibility, CreditCard, FlaskConical, HeartPulse, AlertCircle
+  User, ExternalLink, ChevronUp, ChevronDown, MessageCircle, FileText, Lock, Save, Edit3, Globe, Heart, CheckCircle, ArrowRight, ArrowLeft, BookOpen, Star, Activity, Monitor, ChevronLeft, ChevronRight, Accessibility, CreditCard, FlaskConical, HeartPulse, AlertCircle, Printer, Copy, Check
 } from 'lucide-react';
 import { 
   signInAnonymously, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, signInWithPopup, sendEmailVerification, sendPasswordResetEmail, setPersistence, browserLocalPersistence
@@ -79,7 +79,7 @@ const App = () => {
     { type: 'clinic', image: IMAGES.clinic3, title: t.carousel.clinicSlide3Title, subtitle: t.carousel.clinicSlide3Subtitle },
   ];
   const [currentHeroSlide, setCurrentHeroSlide] = useState(0);
-  const scriptFont = { fontFamily: '"Allura", cursive' };
+  const scriptFont = { fontFamily: '"Alex Brush", cursive' };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -374,7 +374,7 @@ const App = () => {
                         style={scriptFont}
                         className="text-5xl md:text-7xl leading-none text-white mb-5"
                       >
-                        Dre. Eva NIYIBIZI
+                        Dre. Eva Niyibizi
                       </h1>
 
                       <div className="space-y-2 text-base md:text-xl text-white/95 font-medium max-w-2xl mx-auto">
@@ -473,9 +473,9 @@ const App = () => {
                   <span>{t.sections.multilingual}: Français, English, Português, Hebrew, Română, Kinyarwanda</span>
                </div>
 
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                  {doctors.map(doc => <DoctorCard key={doc.id} doc={doc} />)}
-               </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+                {doctors.map(doc => <DoctorCard key={doc.id} doc={doc} />)}
+              </div>
              </div>
            </section>
 
@@ -533,127 +533,114 @@ const App = () => {
                </div>
            </section>
 
-           {/* NOVA SESSÃO: Informações Práticas e OneDoc (Idêntica à Imagem 1) */}
-           <section id="infos" className="pb-16 pt-8 bg-white border-t border-gray-100">
-              <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  
-                  {/* Bloco: Informations pratiques */}
-                  <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
-                    <h4 className="text-xl font-bold text-[#2B7A5F] mb-6">
-                      Informations pratiques
-                    </h4>
-
-                    <ul className="space-y-4 text-sm text-gray-700">
-                      <li className="flex items-start gap-3">
-                        <FileText size={18} className="text-[#2B7A5F] mt-0.5 shrink-0" />
-                        <span><strong>Fax:</strong> {clinicData?.fax}</span>
-                      </li>
-
-                      <li className="flex items-start gap-3">
-                        <FlaskConical size={18} className="text-[#2B7A5F] mt-0.5 shrink-0" />
-                        <span>
-                          <strong>Laboratoires partenaires:</strong> {clinicData?.labPartners?.join(', ')}
-                        </span>
-                      </li>
-
-                      <li className="flex items-start gap-3">
-                        <Calendar size={18} className="text-[#2B7A5F] mt-0.5 shrink-0" />
-                        <span>{getText(clinicData?.bookingInfo)}</span>
-                      </li>
-
-                      <li className="flex items-start gap-3">
-                        <CreditCard size={18} className="text-[#2B7A5F] mt-0.5 shrink-0" />
-                        <span>{getText(clinicData?.paymentInfo)}</span>
-                      </li>
-
-                      <li className="flex items-start gap-3">
-                        <Accessibility size={18} className="text-[#2B7A5F] mt-0.5 shrink-0" />
-                        <span>{getText(clinicData?.accessibilityInfo)}</span>
-                      </li>
-
-                      <li className="flex items-start gap-3">
-                        <span className="text-lg leading-none mt-0.5 shrink-0">🏳️‍🌈</span>
-                        <span>{getText(clinicData?.inclusionInfo)}</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  {/* Bloco: OneDoc */}
-                  <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm flex flex-col items-center md:items-start text-center md:text-left h-full">
-                    <h4 className="text-xl font-bold text-[#2B7A5F] mb-4">
-                      OneDoc
-                    </h4>
-
-                    <p className="text-sm text-gray-600 mb-6">
-                      {getText(clinicData?.bookingInfo)}
-                    </p>
-
-                    <div className="rounded-2xl border border-dashed border-[#2B7A5F] bg-white p-8 text-center w-full flex-1 flex flex-col items-center justify-center">
-                      <p className="text-sm text-gray-500 mb-5">
-                        Widget / espace de réservation OneDoc
-                      </p>
-
-                      <a
-                        href={clinicData?.oneDocUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-[#2B7A5F] text-white px-8 py-3 rounded-full font-bold hover:bg-[#245F4B] transition shadow-sm w-full md:w-auto"
-                      >
-                        <ExternalLink size={18} />
-                        Réserver sur OneDoc
-                      </a>
-                    </div>
-                  </div>
-
+           {/* SESSÃO: OneDoc Centralizado */}
+           <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
+              <div className="container mx-auto px-6 flex flex-col items-center">
+                
+                <div className="text-center mb-10">
+                  <h2 className="text-3xl font-bold text-[#2B7A5F] mb-4">Prendre Rendez-vous</h2>
+                  <p className="text-gray-600 max-w-2xl mx-auto">
+                    {getText(clinicData?.bookingInfo)}
+                  </p>
                 </div>
+
+                {/* Card do Widget OneDoc */}
+                <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col items-center p-2 md:p-6">
+                    <iframe 
+                        className="od-widget rounded-xl" 
+                        id="od-widget-5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                        src="https://www.onedoc.ch/fr/widget/5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                        frameBorder="0" 
+                        style={{ width: '100%', maxWidth: '1024px', height: '450px' }}
+                    ></iframe>
+                </div>
+
               </div>
            </section>
 
-           {/* RODAPÉ LIMPO */}
-           <footer className="bg-white text-gray-800 pt-12 pb-12 w-full max-w-full overflow-hidden border-t border-gray-100">
-              <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                       <h3 className="text-2xl font-serif font-bold mb-4 text-[#2B7A5F]">Adresse du cabinet</h3>
-                       <p className="text-gray-600 mb-4">{clinicData?.address}</p>
-                       
-                       <a
-                         href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`}
-                         className="block text-gray-900 font-bold text-lg hover:text-[#2B7A5F] transition-colors w-fit"
-                       >
-                         {clinicData?.phone}
-                       </a>
-                       
-                       <a
-                         href={`mailto:${clinicData?.email}`}
-                         className="inline-block text-white bg-[#2B7A5F] px-4 py-2 rounded-lg text-sm font-bold mt-3 hover:bg-[#245F4B] transition-colors w-fit shadow-sm"
-                       >
-                         {clinicData?.email}
-                       </a>
-                     </div>
-                     
-                     <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                         <h4 className="font-bold mb-4 text-[#2B7A5F]">{t.footer.engagementsTitle}</h4>
-                         <p className="text-gray-600 text-sm leading-relaxed md:pr-6">
-                           {t.footer.missionText}
-                         </p>
-                     </div>
-
-                     <div className="h-48 bg-gray-800 rounded-xl overflow-hidden shadow-lg border border-gray-700">
-                         <iframe 
-                           src={clinicData?.mapEmbedUrl} 
-                           width="100%" 
-                           height="100%" 
-                           style={{border:0}} 
-                           allowFullScreen="" 
-                           loading="lazy"
-                           className="opacity-80 hover:opacity-100 transition"
-                         ></iframe>
-                     </div>
+           <footer className="bg-[#f8f9fa] pt-16 pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
+            <div className="container mx-auto px-6">
+              
+              {/* Grid ajustado: 12 colunas para controle preciso das larguras */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                
+                {/* Coluna 1: Contato e Endereço */}
+                <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-3">
+                  <h3 className="text-2xl font-serif font-bold mb-6 text-[#2B7A5F]">Cabinet Médical</h3>
+                  
+                  {/* Trocamos flex-grow/justify-between por space-y-5 para fixar a distância idêntica à do bloco 2 */}
+                  <div className="flex flex-col space-y-5 w-full items-center lg:items-start">
+                    <p className="text-gray-600">{clinicData?.address}</p>
+                    
+                    <a href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-gray-900 font-bold text-lg hover:text-[#2B7A5F] transition-colors">
+                      <Phone size={18} className="text-[#2B7A5F]" /> {clinicData?.phone}
+                    </a>
+                    
+                    <div 
+                      onClick={() => {
+                        navigator.clipboard.writeText(clinicData?.fax);
+                        showToast("Numéro de fax copié !", "success");
+                      }}
+                      className="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#2B7A5F] transition-colors group"
+                      title="Copier le fax"
+                    >
+                      <Printer size={18} className="text-[#2B7A5F]" /> 
+                      <span>Fax: {clinicData?.fax}</span>
+                      <Copy size={15} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400" />
+                    </div>
+                    
+                    {/* Adicionado mt-1 apenas para dar um leve respiro extra antes do botão, mantendo o padrão da imagem */}
+                    <a href={`mailto:${clinicData?.email}`} className="inline-flex items-center gap-2 text-white bg-[#2B7A5F] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#245F4B] transition-colors shadow-sm w-fit mt-1">
+                      <Mail size={16} /> {clinicData?.email}
+                    </a>
                   </div>
+                </div>
+                
+                {/* Coluna 2: Informações Práticas (Ocupa 4 das 12 colunas) */}
+                <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-4">
+                  <h4 className="font-bold text-lg text-[#2B7A5F] mb-6">Informations Pratiques</h4>
+                  
+                  <div className="flex flex-col flex-grow justify-between w-full">
+                    <ul className="flex flex-col space-y-5 text-sm text-gray-600 w-full mb-6">
+                      <li className="flex items-start justify-center lg:justify-start gap-3">
+                        <FlaskConical size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                        <span><strong>Laboratoires:</strong> {clinicData?.labPartners?.join(', ')}</span>
+                      </li>
+                      <li className="flex items-start justify-center lg:justify-start gap-3">
+                        <CreditCard size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                        <span>{getText(clinicData?.paymentInfo)}</span>
+                      </li>
+                      <li className="flex items-start justify-center lg:justify-start gap-3">
+                        <Accessibility size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                        <span>{getText(clinicData?.accessibilityInfo)}</span>
+                      </li>
+                    </ul>
+
+                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 w-full mt-auto">
+                      <div className="flex items-start justify-center lg:justify-start gap-3 text-sm text-gray-700">
+                          <span className="text-lg leading-none shrink-0 mt-0.5">🏳️‍🌈</span>
+                          <span className="leading-relaxed">{getText(clinicData?.inclusionInfo)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Coluna 3: Mapa (Ocupa as 5 colunas restantes, garantindo um bom tamanho) */}
+                <div className="h-full min-h-[250px] lg:col-span-5 bg-gray-200 rounded-xl overflow-hidden shadow-sm">
+                  <iframe 
+                    src={clinicData?.mapEmbedUrl} 
+                    width="100%" 
+                    height="100%" 
+                    style={{border:0}} 
+                    allowFullScreen="" 
+                    loading="lazy"
+                    className="opacity-95 hover:opacity-100 transition-opacity duration-300"
+                  ></iframe>
+                </div>
+                
               </div>
-           </footer>
+            </div>
+          </footer>
         </div>
       )}
 
