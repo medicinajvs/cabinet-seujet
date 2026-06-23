@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Calendar, LogOut, Edit3, CheckCircle, Clock, FileText, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { User, Calendar, LogOut, Edit3, CheckCircle, Clock, FileText, Phone, MapPin, ExternalLink, Activity } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { TRANSLATIONS } from '../../data/constants';
@@ -98,46 +98,59 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
 
           {/* HISTÓRICO */}
           <div className="lg:col-span-3 space-y-6">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 min-h-[400px]">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 min-h-[400px] flex flex-col gap-8">
+              
+              <div className="flex justify-between items-center">
+                <h2 className="text-xl font-bold text-[#1D352B] flex items-center gap-2">
                   <Calendar className="text-[#2B7A5F]" /> {t.historyTitle}
                 </h2>
               </div>
 
-              {appointments.length === 0 ? (
-                <div className="text-center py-16 text-gray-400">
-                  <div className="bg-gray-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Calendar size={32} className="opacity-30" />
-                  </div>
-                  <p>{t.noHistory}</p>
-                  <p className="text-sm mt-2">{t.noHistorySub}</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {appointments.map((appt) => (
-                    <div key={appt.id} className="border border-gray-100 p-5 rounded-xl hover:border-[#2B7A5F] transition bg-white shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                      <div className="flex gap-4 items-center">
-                        <div className="w-12 h-12 bg-green-50 text-[#2B7A5F] rounded-full flex items-center justify-center shrink-0">
-                           {appt.type === 'redirection_onedoc' ? <ExternalLink size={20}/> : <Phone size={20}/>}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-gray-800">{appt.doctorName}</h4>
-                          <p className="text-sm text-gray-500">
-                            {new Date(appt.date).toLocaleDateString()} à {appt.time}
-                          </p>
-                          <span className={`text-xs px-2 py-1 rounded mt-1 inline-block font-medium ${appt.type === 'redirection_onedoc' ? 'bg-blue-50 text-blue-700' : 'bg-green-50 text-green-700'}`}>
-                            {appt.type === 'redirection_onedoc' ? t.redirectOneDoc : t.phoneCall}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-400">
-                        <CheckCircle size={16} /> {t.interestRecorded}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              {/* Seção 1: A Ponte Transparente para a OneDoc */}
+              <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
+                <h3 className="text-lg font-bold text-gray-800 mb-2">Gestion des Rendez-vous</h3>
+                <p className="text-sm text-gray-600 mb-5 leading-relaxed">
+                  Pour des raisons de sécurité et de stricte confidentialité médicale, votre historique complet et la gestion de vos rendez-vous sont centralisés sur la plateforme sécurisée OneDoc.
+                </p>
+                <a 
+                  href="https://www.onedoc.ch/fr/login" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-[#2B7A5F] bg-[#2B7A5F]/10 hover:bg-[#2B7A5F]/20 px-5 py-2.5 rounded-xl text-sm font-bold transition-colors w-fit"
+                >
+                  <ExternalLink size={16} />
+                  Consulter mon historique sur OneDoc
+                </a>
+              </div>
+
+              <hr className="border-gray-100" />
+
+              {/* Seção 2: Preparação pour a Consulta */}
+              <div>
+                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                  <FileText size={20} className="text-[#2B7A5F]" />
+                  Préparation à votre visite
+                </h3>
+                <p className="text-sm text-gray-500 mb-4">
+                  Lors de votre venue au cabinet, merci de vous munir des documents suivants :
+                </p>
+                
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                    <User size={18} className="text-[#2B7A5F]" />
+                    <span>Pièce d'identité en cours de validité</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                    <FileText size={18} className="text-[#2B7A5F]" />
+                    <span>Carte d'assurance maladie (LAMal)</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
+                    <Activity size={18} className="text-[#2B7A5F]" />
+                    <span>Carnet de vaccination et liste de vos médicaments</span>
+                  </li>
+                </ul>
+              </div>
+
             </div>
           </div>
 

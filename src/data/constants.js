@@ -14,7 +14,7 @@ export const IMAGES = {
 
 export const TRANSLATIONS = {
   fr: {
-    nav: { home: "Accueil", team: "L'Équipe", mission: "Mission & Enseignement", clinic: "Services", login: "Connexion", mySpace: "Mon Espace", book: "Prendre Rendez-vous" },
+    nav: { home: "Accueil", team: "L'Équipe", mission: "Mission & Enseignement", clinic: "Services", infos: "Consultations", contact: "Accès & Contact", login: "Connexion", mySpace: "Mon Espace", book: "Prendre Rendez-vous" },
     hero: { 
       title: "Cabinet Médical du Seujet", 
       subtitle: "Cabinet médical formateur: transmission et formation des étudiants et internes.", 
@@ -68,7 +68,7 @@ export const TRANSLATIONS = {
     }
   },
   en: {
-    nav: { home: "Home", team: "The Team", mission: "Mission & Teaching", clinic: "Services", login: "Login", mySpace: "My Space", book: "Book Appointment" },
+    nav: { home: "Home", team: "The Team", mission: "Mission & Teaching", clinic: "Services", infos: "Appointments", contact: "Access & Contact", login: "Login", mySpace: "My Space", book: "Book Appointment" },
     hero: { 
       title: "Cabinet Médical du Seujet", 
       subtitle: "Training medical practice: transmission and training of students and residents.", 

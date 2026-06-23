@@ -60,8 +60,9 @@ const App = () => {
     { id: 'mission', label: t.nav?.mission || 'Mission' },
     { id: 'team', label: t.nav?.team || "L'Équipe" },
     { id: 'clinic', label: t.nav?.clinic || 'Services' },
-    { id: 'infos', label: t.nav?.infos || 'Infos Pratiques' }
-  ]; 
+    { id: 'infos', label: t.nav?.infos || 'Consultations' },
+    { id: 'contact', label: t.nav?.contact || 'Accès & Contact' }
+  ];
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
@@ -272,7 +273,7 @@ const App = () => {
         <div className="w-full relative">
            
            <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${scrolled || isMenuOpen ? 'bg-white text-gray-800 shadow-md py-3' : 'bg-gradient-to-b from-black/60 to-transparent text-white py-5'}`}>
-              <div className="container mx-auto px-6">
+              <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="flex justify-between items-center">
                   
                   {/* Nome da Clínica */}
@@ -420,7 +421,7 @@ const App = () => {
            </section>
 
            <section id="mission" className="py-20 bg-white">
-               <div className="container mx-auto px-6">
+               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                    <div className="text-center mb-16">
                        <div className="max-w-2xl mx-auto text-gray-700 text-lg font-medium bg-gray-50 p-6 rounded-xl border border-gray-100 shadow-sm">
                           {getText(DEFAULT_CLINIC_INFO.features[0])}
@@ -462,7 +463,7 @@ const App = () => {
            </section>
 
            <section id="team" className="py-20 bg-gray-50">
-             <div className="container mx-auto px-6">
+             <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                <div className="text-center mb-10">
                   <h2 className="text-3xl font-bold text-[#2B7A5F] mb-2">{t.doctors.title}</h2>
                   <div className="w-20 h-1 bg-gray-300 mx-auto"></div>
@@ -480,7 +481,7 @@ const App = () => {
            </section>
 
            <section id="clinic" className="pt-20 pb-8 bg-white">
-               <div className="container mx-auto px-6">
+               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                    <h2 className="text-3xl font-bold text-center text-[#2B7A5F] mb-16">{t.sections.services}</h2>
                    <div className="grid md:grid-cols-3 gap-8 mb-20">
                        {DEFAULT_SERVICES.map((s, i) => (
@@ -534,8 +535,8 @@ const App = () => {
            </section>
 
            {/* SESSÃO: OneDoc Centralizado */}
-           <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
-              <div className="container mx-auto px-6 flex flex-col items-center">
+            <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
+              <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col items-center">
                 
                 <div className="text-center mb-10">
                   <h2 className="text-3xl font-bold text-[#2B7A5F] mb-4">Prendre Rendez-vous</h2>
@@ -558,8 +559,8 @@ const App = () => {
               </div>
            </section>
 
-           <footer className="bg-[#f8f9fa] pt-16 pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
-            <div className="container mx-auto px-6">
+           <footer id="contact" className="bg-[#f8f9fa] pt-16 pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
+            <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
               
               {/* Grid ajustado: 12 colunas para controle preciso das larguras */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
