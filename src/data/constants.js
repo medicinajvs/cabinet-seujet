@@ -168,9 +168,30 @@ export const DEFAULT_DOCTORS = [
     oneDocLink: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
     specialty: { fr: "Médecine Interne & d'Urgence", en: "Internal & Emergency Medicine" },
     description: { fr: "Médecin FMH, SSMUS et Médecin Consultante aux HUG.", en: "FMH, SSMUS Doctor and Consultant Doctor at HUG." },
-    biography: {
-      fr: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d’une double spécialisation en médecine interne et médecine d’urgence. Elle bénéficie de plus de 10 ans d’expérience clinique acquise aux HUG et a également exercé à la Clinique La Colline. Elle a complété sa formation à l’international (trauma fellowship à Jérusalem). Intérêts : santé de la femme, soins de santé communautaires et accompagnement des populations sous-représentées. Engagement communautaire (MedFem, Onesimus, FeminEM, AfCEM). Ses valeurs : inclusion, santé holistique, médecine personnalisée, flexibilité, respect et écoute.",
-      en: "Former Head of Clinic at HUG and currently Consultant Doctor in the HUG emergency department, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine. She has more than 10 years of clinical experience acquired at HUG and has also worked at Clinique La Colline. She completed part of her training internationally (trauma fellowship in Jerusalem). Interests: women’s health, community healthcare, and underrepresented populations. Community engagement (MedFem, Onesimus, FeminEM, AfCEM). Her values: inclusion, holistic health, personalized medicine, flexibility, respect, and attentive listening."
+    biography: { fr: "", en: "" }, // Fallback vazio pois usaremos o richBio
+    richBio: {
+      fr: {
+        paragraphs: [
+          { text: "Ancienne Cheffe de Clinique aux ", bold: "HUG", text2: " et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d'une double spécialisation en médecine interne et médecine d'urgence." },
+          { text: "Elle bénéficie de ", highlight: "plus de 10 ans d'expérience", text2: " clinique acquise aux HUG et a également exercé à la Clinique La Colline. Elle a complété sa formation à l'international (trauma fellowship à Jérusalem)." }
+        ],
+        bullets: [
+          { label: "Intérêts", text: "Santé de la femme, soins de santé communautaires et accompagnement des populations sous-représentées." },
+          { label: "Engagement", text: "MedFem, Onesimus, FeminEM, AfCEM." },
+          { label: "Valeurs", text: "Inclusion, santé holistique, médecine personnalisée, flexibilité, respect et écoute." }
+        ]
+      },
+      en: {
+        paragraphs: [
+          { text: "Former Head of Clinic at ", bold: "HUG", text2: " and currently Consultant Doctor in the HUG emergency department, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine." },
+          { text: "She has ", highlight: "more than 10 years of experience", text2: " acquired at HUG and has also worked at Clinique La Colline. She completed part of her training internationally (trauma fellowship in Jerusalem)." }
+        ],
+        bullets: [
+          { label: "Interests", text: "Women’s health, community healthcare, and underrepresented populations." },
+          { label: "Engagement", text: "MedFem, Onesimus, FeminEM, AfCEM." },
+          { label: "Values", text: "Inclusion, holistic health, personalized medicine, flexibility, respect, and attentive listening." }
+        ]
+      }
     },
     languages: ["Français", "English", "Hebrew", "Kinyarwanda"],
     image: IMAGES.drEva
@@ -185,9 +206,26 @@ export const DEFAULT_DOCTORS = [
     oneDocLink: "https://www.onedoc.ch/fr/medecin-generaliste/geneve/pc3sn/dr-carole-rabetokotany",
     specialty: { fr: "FMH Médecin Praticienne", en: "FMH General Practitioner" },
     description: { fr: "Diplôme médical: Faculté de Médecine de Paris", en: "Medical diploma: Faculty of Medicine of Paris" },
-    biography: {
-      fr: "Diplômée de la Faculté de Médecine de Paris. Intérêts : micronutrition, santé mentale, médecine préventive et intégrative. Elle reçoit les enfants, adolescents et adultes dans une approche attentive et adaptée.", // <-- ATUALIZADO com o público atendido
-      en: "Graduate of the Faculty of Medicine of Paris. Interests: micronutrition, mental health, preventative and integrative medicine. She receives children, adolescents, and adults in an attentive and tailored approach." // <-- ATUALIZADO
+    biography: { fr: "", en: "" },
+    richBio: {
+      fr: {
+        paragraphs: [
+          { text: "Diplômée de la ", highlight: "Faculté de Médecine de Paris", text2: "." }
+        ],
+        bullets: [
+          { label: "Intérêts", text: "Micronutrition, santé mentale, médecine préventive et intégrative." },
+          { label: "Consultations", text: "Elle reçoit les enfants, adolescents et adultes dans une approche attentive et adaptée." }
+        ]
+      },
+      en: {
+        paragraphs: [
+          { text: "Graduate of the ", highlight: "Faculty of Medicine of Paris", text2: "." }
+        ],
+        bullets: [
+          { label: "Interests", text: "Micronutrition, mental health, preventative and integrative medicine." },
+          { label: "Consultations", text: "She receives children, adolescents, and adults in an attentive and tailored approach." }
+        ]
+      }
     },
     languages: ["Français", "English", "Malgache"],
     image: IMAGES.drCarole
@@ -201,9 +239,26 @@ export const DEFAULT_DOCTORS = [
     bookingMethod: "phone_only",
     specialty: { fr: "Médecine Interne", en: "Internal Medicine" },
     description: { fr: "3ème année de résidanat (formation post-graduée).", en: "3rd year resident (post-graduate training)." },
-    biography: {
-      fr: "Médecin en formation postgraduée en troisième année de médecine interne, je vous accueille en consultation avec écoute attentive, bienveillance et engagement. Titulaire d’une formation médicale réalisée à l’étranger, j’évolue dans un environnement multiculturel et multilingue. Je parle couramment le français, l’anglais et le portugais, et dispose de notions en roumain.",
-      en: "A doctor in postgraduate training in my third year of internal medicine, I welcome you in consultation with attentive listening, kindness, and commitment. Holding a medical degree obtained abroad, I thrive in a multicultural and multilingual environment. I fluently speak French, English, and Portuguese, and have some notions of Romanian."
+    biography: { fr: "", en: "" },
+    richBio: {
+      fr: {
+        paragraphs: [
+          { text: "Médecin en formation postgraduée en ", bold: "troisième année de médecine interne", text2: ", je vous accueille en consultation avec écoute attentive, bienveillance et engagement." },
+          { text: "Titulaire d'une formation médicale réalisée à l'étranger, j'évolue dans un ", highlight: "environnement multiculturel", text2: " et multilingue." }
+        ],
+        bullets: [
+          { label: "Langues", text: "Je parle couramment le français, l'anglais et le portugais, et dispose de notions en roumain." }
+        ]
+      },
+      en: {
+        paragraphs: [
+          { text: "A doctor in postgraduate training in my ", bold: "third year of internal medicine", text2: ", I welcome you in consultation with attentive listening, kindness, and commitment." },
+          { text: "Holding a medical degree obtained abroad, I thrive in a ", highlight: "multicultural environment", text2: " that is also multilingual." }
+        ],
+        bullets: [
+          { label: "Languages", text: "I fluently speak French, English, and Portuguese, and have some notions of Romanian." }
+        ]
+      }
     },
     languages: ["Français", "English", "Português", "Română"],
     image: IMAGES.karen
@@ -216,9 +271,22 @@ export const DEFAULT_DOCTORS = [
     bookable: false, 
     specialty: { fr: "Administration & Soins", en: "Administration & Care" },
     description: { fr: "Le cœur battant du cabinet avec une gestion humaine et rigoureuse.", en: "The beating heart of the clinic with humane and rigorous management." },
-    biography: {
-      fr: "Assistante médicale dévouée avec une riche expérience dans la gestion et l'accompagnement des patients. Véritable pilier du cabinet, Lucienne assure le bon déroulement des consultations et la réalisation des examens techniques (prises de sang, ECG, etc.) avec douceur et professionnalisme. Son approche humaine et sa rigueur garantissent un accueil chaleureux et sécurisant pour chaque personne franchissant les portes du cabinet.",
-      en: "A dedicated medical assistant with rich experience in patient management and support. A true pillar of the practice, Lucienne ensures the smooth running of consultations and technical exams (blood tests, ECGs, etc.) with gentleness and professionalism. Her human approach and rigor guarantee a warm and secure welcome for everyone walking through the clinic doors."
+    biography: { fr: "", en: "" },
+    richBio: {
+      fr: {
+        paragraphs: [
+          { text: "Assistante médicale dévouée avec une ", highlight: "riche expérience", text2: " dans la gestion et l'accompagnement des patients." },
+          { text: "", bold: "Véritable pilier du cabinet", text2: ", Lucienne assure le bon déroulement des consultations et la réalisation des examens techniques (prises de sang, ECG, etc.) avec douceur et professionnalisme." },
+          { text: "Son approche humaine et sa rigueur garantissent un accueil chaleureux et sécurisant pour chaque personne franchissant les portes du cabinet.", bold: "", text2: "" }
+        ]
+      },
+      en: {
+        paragraphs: [
+          { text: "A dedicated medical assistant with ", highlight: "rich experience", text2: " in patient management and support." },
+          { text: "", bold: "A true pillar of the practice", text2: ", Lucienne ensures the smooth running of consultations and technical exams (blood tests, ECGs, etc.) with gentleness and professionalism." },
+          { text: "Her human approach and rigor guarantee a warm and secure welcome for everyone walking through the clinic doors.", bold: "", text2: "" }
+        ]
+      }
     },
     languages: ["Français", "English"], 
     image: IMAGES.lucienne

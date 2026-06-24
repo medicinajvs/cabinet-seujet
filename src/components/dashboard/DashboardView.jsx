@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, Calendar, LogOut, Edit3, CheckCircle, Clock, FileText, Phone, MapPin, ExternalLink, Activity } from 'lucide-react';
+import { User, Calendar, LogOut, Edit3, CheckCircle, Clock, FileText, Phone, MapPin, ExternalLink, Activity, FlaskConical, CreditCard, Accessibility } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { TRANSLATIONS } from '../../data/constants';
@@ -125,30 +125,48 @@ const DashboardView = ({ user, userData, isDoctor, appointments, onClose, onEdit
 
               <hr className="border-gray-100" />
 
-              {/* Seção 2: Preparação pour a Consulta */}
-              <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                  <FileText size={20} className="text-[#2B7A5F]" />
-                  Préparation à votre visite
+              {/* Bloco de Informações Práticas - Substitui o "Préparation à votre visite" no DashboardView.jsx */}
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 w-full">
+                <h3 className="text-xl font-bold text-[#2B7A5F] mb-6">
+                  Informations Pratiques
                 </h3>
-                <p className="text-sm text-gray-500 mb-4">
-                  Lors de votre venue au cabinet, merci de vous munir des documents suivants :
-                </p>
                 
-                <ul className="space-y-3">
-                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                    <User size={18} className="text-[#2B7A5F]" />
-                    <span>Pièce d'identité en cours de validité</span>
+                <ul className="space-y-6 text-sm text-gray-700 mb-8">
+                  <li className="flex items-start gap-4">
+                    <div className="bg-[#2B7A5F]/10 p-2 rounded-lg shrink-0">
+                      <FlaskConical size={20} className="text-[#2B7A5F]" />
+                    </div>
+                    <div className="mt-1">
+                      <span className="font-bold text-gray-900">Laboratoires:</span> Viollier, Unilabs, Dianalabs, MGD
+                    </div>
                   </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                    <FileText size={18} className="text-[#2B7A5F]" />
-                    <span>Carte d'assurance maladie (LAMal)</span>
+                  
+                  <li className="flex items-start gap-4">
+                    <div className="bg-[#2B7A5F]/10 p-2 rounded-lg shrink-0">
+                      <CreditCard size={20} className="text-[#2B7A5F]" />
+                    </div>
+                    <span className="mt-1 leading-relaxed">
+                      Paiement par carte ou directement auprès de l'assurance maladie.
+                    </span>
                   </li>
-                  <li className="flex items-center gap-3 text-sm text-gray-700 bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
-                    <Activity size={18} className="text-[#2B7A5F]" />
-                    <span>Carnet de vaccination et liste de vos médicaments</span>
+                  
+                  <li className="flex items-start gap-4">
+                    <div className="bg-[#2B7A5F]/10 p-2 rounded-lg shrink-0">
+                      <Accessibility size={20} className="text-[#2B7A5F]" />
+                    </div>
+                    <span className="mt-1 leading-relaxed">
+                      Accès PMR et transports publics à proximité (bus / tram).
+                    </span>
                   </li>
                 </ul>
+
+                {/* Card de Acolhimento e Inclusão */}
+                <div className="bg-[#fafafa] p-5 rounded-xl border border-gray-200 flex items-start gap-4 transition-colors hover:border-[#2B7A5F]/30 hover:bg-[#F4F9F7]">
+                  <span className="text-2xl leading-none shrink-0 mt-0.5 drop-shadow-sm">🏳️‍🌈</span>
+                  <p className="text-sm text-gray-600 leading-relaxed font-medium">
+                    Tous les patients sont les bienvenus pour parler de leur santé dans un environnement respectueux et déontologique, sans distinction de race, de genre, d'orientation religieuse ou sexuelle.
+                  </p>
+                </div>
               </div>
 
             </div>
