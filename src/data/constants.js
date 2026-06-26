@@ -205,24 +205,26 @@ export const DEFAULT_DOCTORS = [
     bookingMethod: "onedoc_or_phone",
     oneDocLink: "https://www.onedoc.ch/fr/medecin-generaliste/geneve/pc3sn/dr-carole-rabetokotany",
     specialty: { fr: "FMH Médecin Praticienne", en: "FMH General Practitioner" },
-    description: { fr: "Diplôme médical: Faculté de Médecine de Paris", en: "Medical diploma: Faculty of Medicine of Paris" },
+    description: { fr: "Médecine intégrative, psychiatrie et micronutrition.", en: "Integrative medicine, psychiatry, and micronutrition." },
     biography: { fr: "", en: "" },
     richBio: {
       fr: {
         paragraphs: [
-          { text: "Diplômée de la ", highlight: "Faculté de Médecine de Paris", text2: "." }
+          { text: "Diplômée en médecine générale, en ", highlight: "micronutrition", text2: ", et dotée d'une expérience en psychiatrie et psychothérapie, la Dre Rabetokotany vous reçoit au cabinet médical du Seujet." },
+          { text: "Nourrie par ses voyages et ses expériences à l'étranger, elle a développé une vision ouverte, globale et diversifiée de l’humain. Sa pratique allie la ", bold: "médecine allopathique", text2: " et la ", highlight: "médecine complémentaire", text2: "." }
         ],
         bullets: [
-          { label: "Intérêts", text: "Micronutrition, santé mentale, médecine préventive et intégrative." },
+          { label: "Approche", text: "Médecine intégrative. Elle s’intéresse à l’individu dans son entièreté, en prenant pleinement en compte son contexte culturel." },
           { label: "Consultations", text: "Elle reçoit les enfants, adolescents et adultes dans une approche attentive et adaptée." }
         ]
       },
       en: {
         paragraphs: [
-          { text: "Graduate of the ", highlight: "Faculty of Medicine of Paris", text2: "." }
+          { text: "Graduated in general medicine and ", highlight: "micronutrition", text2: ", with experience in psychiatry and psychotherapy, Dr. Rabetokotany welcomes you to the Seujet medical practice." },
+          { text: "Enriched by her travels and experiences abroad, she has developed an open, global, and diversified vision of humanity. Her practice combines ", bold: "allopathic medicine", text2: " and ", highlight: "complementary medicine", text2: "." }
         ],
         bullets: [
-          { label: "Interests", text: "Micronutrition, mental health, preventative and integrative medicine." },
+          { label: "Approach", text: "Integrative medicine. She is interested in the individual as a whole, fully taking into account their cultural context." },
           { label: "Consultations", text: "She receives children, adolescents, and adults in an attentive and tailored approach." }
         ]
       }
