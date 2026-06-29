@@ -82,12 +82,13 @@ const BookingWizard = ({ doctors, user, onClose, lang, preselectedDoctorId }) =>
           <div className="flex flex-col items-center w-full mt-4 max-w-2xl mx-auto">
              
              {/* O iframe só aparece se a médica aceitar OneDoc */}
+             {/* O iframe só aparece se a médica aceitar OneDoc */}
              {selectedDoc.bookingMethod === 'onedoc_or_phone' && (
                <div className="w-full rounded-xl border border-gray-200 overflow-hidden mb-6 bg-white shadow-sm">
                   <iframe 
                     className="od-widget" 
-                    id="od-widget-5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
-                    src="https://www.onedoc.ch/fr/widget/5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                    id={`od-widget-${selectedDoc.widgetId || '5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd'}`} 
+                    src={`https://www.onedoc.ch/fr/widget/${selectedDoc.widgetId || '5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd'}`} 
                     frameBorder="0" 
                     style={{ width: '100%', height: '420px' }}
                   ></iframe>

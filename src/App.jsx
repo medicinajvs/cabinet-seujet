@@ -580,12 +580,12 @@ const App = () => {
                     </p>
                   </div>
 
-                  {/* Card do Widget OneDoc */}
+                  {/* Card do Widget OneDoc (Atualizado para Dre. Rabetokotany) */}
                   <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col items-center p-2 md:p-6">
                       <iframe 
                           className="od-widget rounded-xl" 
-                          id="od-widget-5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
-                          src="https://www.onedoc.ch/fr/widget/5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                          id="od-widget-3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
+                          src="https://www.onedoc.ch/fr/widget/3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
                           frameBorder="0" 
                           style={{ width: '100%', maxWidth: '1024px', height: '450px' }}
                       ></iframe>

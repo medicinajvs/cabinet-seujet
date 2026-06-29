@@ -204,6 +204,7 @@ export const DEFAULT_DOCTORS = [
     bookable: true,
     bookingMethod: "onedoc_or_phone",
     oneDocLink: "https://www.onedoc.ch/fr/medecin-generaliste/geneve/pc3sn/dr-carole-rabetokotany",
+    widgetId: "3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d",
     specialty: { fr: "FMH Médecin Praticienne", en: "FMH General Practitioner" },
     description: { fr: "Médecine intégrative, psychiatrie et micronutrition.", en: "Integrative medicine, psychiatry, and micronutrition." },
     biography: { fr: "", en: "" },
