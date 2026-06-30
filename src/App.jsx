@@ -496,14 +496,16 @@ const App = () => {
                 </div>
             </section>
 
-            <section id="team" className="py-20 bg-gray-50">
+            {/* Espaçamento reduzido de py-20 para py-10 no mobile */}
+            <section id="team" className="py-10 lg:py-20 bg-gray-50">
               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
-                <div className="text-center mb-10">
+                {/* Margem inferior do título reduzida no mobile (mb-6 lg:mb-10) */}
+                <div className="text-center mb-6 lg:mb-10">
                     <h2 className="text-3xl font-bold text-[#16679B] mb-2">{t.doctors.title}</h2>
                     <div className="w-20 h-1 bg-[#299E74] mx-auto"></div>
                 </div>
                 
-                <div className="max-w-3xl mx-auto mb-12 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row items-center justify-center gap-3 text-center text-gray-700 font-medium">
+                <div className="max-w-3xl mx-auto mb-8 lg:mb-12 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row items-center justify-center gap-3 text-center text-gray-700 font-medium">
                     <Globe className="text-[#16679B]" size={24} />
                     <span>{t.sections.multilingual}: Français, English, Português, Hebrew, Română, Kinyarwanda</span>
                 </div>
@@ -514,10 +516,13 @@ const App = () => {
               </div>
             </section>
 
-            <section id="clinic" className="pt-20 pb-8 bg-white">
+            {/* Espaçamento superior reduzido para pt-10 no mobile */}
+            <section id="clinic" className="pt-10 pb-8 lg:pt-20 lg:pb-12 bg-white">
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
-                    <h2 className="text-3xl font-bold text-center text-[#16679B] mb-16">{t.sections.services}</h2>
-                    <div className="grid md:grid-cols-3 gap-8 mb-20">
+                    {/* Margem do título reduzida no mobile de mb-16 para mb-10 */}
+                    <h2 className="text-3xl font-bold text-center text-[#16679B] mb-10 lg:mb-16">{t.sections.services}</h2>
+                    
+                    <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-20">
                         {DEFAULT_SERVICES.map((s, i) => (
                             <div key={i} className="p-6 border border-gray-100 rounded-xl hover:border-[#299E74] transition group bg-white shadow-sm flex flex-col items-center text-center md:items-start md:text-left">
                                 <div className="w-12 h-12 bg-[#16679B]/10 rounded-full flex items-center justify-center text-[#16679B] mb-4 group-hover:bg-[#16679B] group-hover:text-white transition">
@@ -568,17 +573,19 @@ const App = () => {
                 </div>
             </section>
 
-            <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
+            {/* Espaçamento superior reduzido para pt-10 no mobile */}
+            <section id="infos" className="pt-10 pb-8 lg:pt-20 lg:pb-16 bg-gray-50 border-t border-gray-100">
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col items-center">
                   
-                  <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-[#16679B] mb-4">Prendre Rendez-vous</h2>
-                    <p className="text-gray-600 max-w-2xl mx-auto">
+                  {/* Margem inferior do bloco de texto reduzida no mobile */}
+                  <div className="text-center mb-8 lg:mb-10">
+                    <h2 className="text-3xl font-bold text-[#16679B] mb-3 lg:mb-4">Prendre Rendez-vous</h2>
+                    <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
                       {getText(clinicData?.bookingInfo)}
                     </p>
                   </div>
 
-                  {/* Agendas lado a lado conforme solicitado */}
+                  {/* Agendas lado a lado */}
                   <div className="grid lg:grid-cols-2 gap-8 w-full max-w-6xl">
                       
                       {/* Widget Dra. Eva Niyibizi */}
@@ -609,19 +616,23 @@ const App = () => {
                 </div>
             </section>
 
-            <footer id="contact" className="bg-[#f8f9fa] pt-16 pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
+            {/* RODAPÉ (Espaçamento superior reduzido e alinhamento milimétrico) */}
+            <footer id="contact" className="bg-[#f8f9fa] pt-8 pb-10 lg:pt-12 lg:pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
                   
+                  {/* Coluna 1: Contato e Endereço */}
                   <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-3">
-                    <h3 className="text-2xl font-serif font-bold mb-6 text-[#16679B]">Cabinet Médical</h3>
+                    <h3 className="text-2xl font-serif font-bold mb-4 lg:mb-6 text-[#16679B]">Cabinet Médical</h3>
                     
-                    <div className="flex flex-col space-y-5 w-full items-center lg:items-start">
+                    <div className="flex flex-col space-y-4 lg:space-y-5 w-full items-center lg:items-start">
                       <p className="text-gray-600">{clinicData?.address}</p>
                       
-                      <a href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-gray-900 font-bold text-lg hover:text-[#299E74] transition-colors">
-                        <Phone size={18} className="text-[#16679B]" /> {clinicData?.phone}
+                      {/* Flex com justify-center adicionado para perfeito alinhamento no mobile */}
+                      <a href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`} className="flex justify-center lg:justify-start items-center gap-3 text-gray-900 font-bold text-lg hover:text-[#299E74] transition-colors w-full">
+                        <Phone size={18} className="text-[#16679B]" /> 
+                        <span>{clinicData?.phone}</span>
                       </a>
                       
                       <div 
@@ -629,49 +640,51 @@ const App = () => {
                           navigator.clipboard.writeText(clinicData?.fax);
                           showToast("Numéro de fax copié !", "success");
                         }}
-                        className="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#299E74] transition-colors group"
+                        className="flex justify-center lg:justify-start items-center gap-3 text-gray-600 cursor-pointer hover:text-[#299E74] transition-colors group w-full"
                         title="Copier le fax"
                       >
                         <Printer size={18} className="text-[#16679B]" /> 
                         <span>Fax: {clinicData?.fax}</span>
-                        <Copy size={15} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400" />
+                        <Copy size={15} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400 hidden lg:block" />
                       </div>
                       
-                      <a href={`mailto:${clinicData?.email}`} className="inline-flex items-center gap-2 text-white bg-[#299E74] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#20805D] transition-colors shadow-sm w-fit mt-1">
+                      <a href={`mailto:${clinicData?.email}`} className="inline-flex justify-center items-center gap-2 text-white bg-[#299E74] px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-[#20805D] transition-colors shadow-sm mt-2">
                         <Mail size={16} /> {clinicData?.email}
                       </a>
                     </div>
                   </div>
                   
-                  <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-4">
-                    <h4 className="font-bold text-lg text-[#16679B] mb-6">Informations Pratiques</h4>
+                  {/* Coluna 2: Informações Práticas */}
+                  <div className="flex flex-col items-center lg:items-start text-left h-full lg:col-span-4 mt-2 lg:mt-0">
+                    <h4 className="font-bold text-lg text-[#16679B] mb-4 lg:mb-6 w-full text-center lg:text-left">Informations Pratiques</h4>
                     
                     <div className="flex flex-col flex-grow justify-between w-full">
-                      <ul className="flex flex-col space-y-5 text-sm text-gray-600 w-full mb-6">
-                        <li className="flex items-start justify-center lg:justify-start gap-3">
+                      <ul className="flex flex-col space-y-4 lg:space-y-5 text-sm text-gray-600 w-full mb-6">
+                        <li className="flex items-start justify-start gap-3">
                           <FlaskConical size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span><strong>Laboratoires:</strong> {clinicData?.labPartners?.join(', ')}</span>
                         </li>
-                        <li className="flex items-start justify-center lg:justify-start gap-3">
+                        <li className="flex items-start justify-start gap-3">
                           <CreditCard size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span>{getText(clinicData?.paymentInfo)}</span>
                         </li>
-                        <li className="flex items-start justify-center lg:justify-start gap-3">
+                        <li className="flex items-start justify-start gap-3">
                           <Accessibility size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span>{getText(clinicData?.accessibilityInfo)}</span>
                         </li>
                       </ul>
 
-                      <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 w-full mt-auto">
-                        <div className="flex items-start justify-center lg:justify-start gap-3 text-sm text-gray-700">
+                      <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm w-full mt-auto">
+                        <div className="flex items-start justify-start gap-3 text-sm text-gray-700">
                             <span className="text-lg leading-none shrink-0 mt-0.5">🏳️‍🌈</span>
-                            <span className="leading-relaxed">{getText(clinicData?.inclusionInfo)}</span>
+                            <span className="leading-relaxed font-medium">{getText(clinicData?.inclusionInfo)}</span>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="h-full min-h-[250px] lg:col-span-5 bg-gray-200 rounded-xl overflow-hidden shadow-sm">
+                  {/* Coluna 3: Mapa */}
+                  <div className="h-full min-h-[300px] lg:col-span-5 bg-gray-200 rounded-xl overflow-hidden shadow-sm border border-gray-100 md:col-span-2 lg:col-span-5 mt-4 md:mt-0">
                     <iframe 
                       src={clinicData?.mapEmbedUrl} 
                       width="100%" 

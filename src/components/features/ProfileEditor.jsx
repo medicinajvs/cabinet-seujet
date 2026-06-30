@@ -3,7 +3,6 @@ import { User, Phone, MapPin, Save, Upload, Loader2 } from 'lucide-react';
 import { updateProfile } from 'firebase/auth';
 import { CLOUDFLARE_API_URL } from '../../data/constants';
 
-// Adicionamos a prop showToast aqui no topo!
 const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -28,7 +27,6 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
 
     setUploadingImage(true);
     try {
-      // 1. Pega o token seguro do Firebase
       const token = await user.getIdToken(); 
 
       const response = await fetch(`${CLOUDFLARE_API_URL}/upload-avatar?userId=${user.uid}`, {
@@ -36,7 +34,6 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
         body: file,
         headers: { 
           'Content-Type': file.type,
-          // 2. Envia o token como credencial
           'Authorization': `Bearer ${token}` 
         }
       });
@@ -50,7 +47,6 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
       
     } catch (error) {
       console.error(error);
-      // Substituído o alert() pelo showToast elegante
       showToast("Falha ao carregar a imagem. Tente novamente.", "error");
     } finally {
       setUploadingImage(false);
@@ -63,15 +59,13 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
     setLoading(true);
     try {
 
-      const token = await user.getIdToken(); // Pega o token
+      const token = await user.getIdToken(); 
       
-      // ... (atualiza o displayName se mudou)
-
       const response = await fetch(`${CLOUDFLARE_API_URL}/users`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Envia o token
+          'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({ uid: user.uid, ...formData })
       });
@@ -84,11 +78,9 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
 
       if (onUpdate) onUpdate(formData);
       
-      // Notificação elegante de Sucesso e fechamento do modal!
       showToast("Profil mis à jour !", "success");
       onClose();
     } catch (error) {
-      // Notificação elegante de Erro!
       showToast("Erreur: " + error.message, "error");
     } finally {
       setLoading(false);
@@ -108,11 +100,11 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
             <img 
               src={formData.photoURL} 
               alt="Avatar" 
-              className="w-24 h-24 rounded-full object-cover border-4 border-gray-50 shadow-md group-hover:border-[#2B7A5F] transition" 
+              className="w-24 h-24 rounded-full object-cover border-4 border-gray-50 shadow-md group-hover:border-[#16679B] transition" 
             />
           ) : (
-            <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-[#2B7A5F] transition">
-              <User size={36} className="text-gray-400 group-hover:text-[#2B7A5F]" />
+            <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center border-2 border-dashed border-gray-300 group-hover:border-[#16679B] transition">
+              <User size={36} className="text-gray-400 group-hover:text-[#16679B]" />
             </div>
           )}
           
@@ -141,12 +133,11 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
           <User className="absolute left-3 top-3 text-gray-400" size={18} />
           <input 
             type="text" name="displayName" value={formData.displayName} onChange={handleChange}
-            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#2B7A5F] focus:ring-1 focus:ring-[#2B7A5F]" required 
+            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#16679B] focus:ring-1 focus:ring-[#16679B]" required 
           />
         </div>
       </div>
 
-      {/* CAMPO DE TELEFONE GLOBAL */}
       <div>
         <label className="block text-sm font-bold text-gray-700 mb-1">Téléphone</label>
         <div className="relative">
@@ -154,16 +145,14 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
           <input 
             type="tel" name="phone" value={formData.phone} onChange={handleChange}
             placeholder="+41 79 000 00 00"
-            // Nova Regra: Permite +, números, espaços e parênteses de qualquer país (7 a 20 caracteres)
             pattern="^\+?[0-9\s\-\(\)]{7,20}$"
             title="Entrez un numéro valide avec code pays (ex: +41...)"
             maxLength="20"
-            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#2B7A5F] focus:ring-1 focus:ring-[#2B7A5F]" 
+            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#16679B] focus:ring-1 focus:ring-[#16679B]" 
           />
         </div>
       </div>
 
-      {/* CAMPO DE ENDEREÇO GLOBAL (Padrão UPU) */}
       <div>
         <label className="block text-sm font-bold text-gray-700 mb-1 flex justify-between items-end">
           <span>Adresse Complète</span>
@@ -177,7 +166,7 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
             rows="3"
             minLength="10"
             maxLength="150"
-            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#2B7A5F] focus:ring-1 focus:ring-[#2B7A5F] resize-none leading-relaxed" 
+            className="w-full pl-10 p-3 border border-gray-300 rounded-lg outline-none focus:border-[#16679B] focus:ring-1 focus:ring-[#16679B] resize-none leading-relaxed" 
           />
         </div>
         <p className="text-xs text-gray-400 mt-1">Ex: Musterweg 4, 3001 Bern, SWITZERLAND</p>
@@ -187,7 +176,7 @@ const ProfileEditor = ({ user, userData, onClose, onUpdate, showToast }) => {
         <button type="button" onClick={onClose} className="flex-1 py-3 border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 font-medium transition">
           Annuler
         </button>
-        <button type="submit" disabled={loading || uploadingImage} className="flex-1 py-3 bg-[#2B7A5F] text-white rounded-lg font-bold hover:bg-[#245F4B] flex justify-center items-center gap-2 transition disabled:opacity-50">
+        <button type="submit" disabled={loading || uploadingImage} className="flex-1 py-3 bg-[#299E74] text-white rounded-lg font-bold hover:bg-[#20805D] flex justify-center items-center gap-2 transition disabled:opacity-50">
           {loading ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />} 
           Enregistrer
         </button>
