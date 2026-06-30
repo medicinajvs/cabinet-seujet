@@ -161,35 +161,46 @@ export const DEFAULT_DOCTORS = [
   {
     id: "doc1",
     name: "Dre. Eva Niyibizi",
-    email: "niyibizi@hin.ch", 
-    role: "Absente (Remplacée par Dre Carole Rabetokotany)", 
-    bookable: false,
+    email: "evaniyibizi@hin.ch", 
+    role: "Absente jusqu'au 31.10.2026", 
+    bookable: true,
     bookingMethod: "onedoc_or_phone",
-    oneDocLink: "https://www.onedoc.ch/en/general-practitioner-gp/geneva/pbqre/dr-eva-niyibizi",
-    specialty: { fr: "Médecine Interne & d'Urgence", en: "Internal & Emergency Medicine" },
-    description: { fr: "Médecin FMH, SSMUS et Médecin Consultante aux HUG.", en: "FMH, SSMUS Doctor and Consultant Doctor at HUG." },
-    biography: { fr: "", en: "" }, // Fallback vazio pois usaremos o richBio
+    oneDocLink: "https://www.onedoc.ch/fr/medecin-generaliste/geneve/pc3sn/dr-eva-niyibizi",
+    widgetId: "5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd", 
+    specialty: { 
+      fr: "Spécialiste FMH - Médecine Interne Générale | SSMUS Médecine d'Urgence | Ancienne Cheffe de Clinique HUG", 
+      en: "FMH Specialist - General Internal Medicine | SSMUS Emergency Medicine | Former Head of Clinic HUG" 
+    },
+    description: { 
+      fr: "Médecin FMH en Médecine Interne Générale et d'Urgence.", 
+      en: "FMH Doctor in General Internal and Emergency Medicine." 
+    },
+    biography: { fr: "", en: "" },
     richBio: {
       fr: {
         paragraphs: [
-          { text: "Ancienne Cheffe de Clinique aux ", bold: "HUG", text2: " et actuellement Médecin Consultante aux urgences des HUG, la Dre Eva Niyibizi est titulaire d'une double spécialisation en médecine interne et médecine d'urgence." },
-          { text: "Elle bénéficie de ", highlight: "plus de 10 ans d'expérience", text2: " clinique acquise aux HUG et a également exercé à la Clinique La Colline. Elle a complété sa formation à l'international (trauma fellowship à Jérusalem)." }
+          { text: "La Dre Eva Niyibizi est titulaire d’une double spécialisation en ", highlight: "médecine interne générale", text2: " et en médecine d’urgence." },
+          { text: "Ancienne Cheffe de Clinique aux HUG et actuellement Médecin Consultante aux urgences des HUG, elle bénéficie de plus de 10 ans d’expérience clinique, ayant également exercé à la Clinique La Colline." },
+          { text: "Née au Rwanda, elle a grandi en Belgique et aux États-Unis. Elle a effectué ses études de médecine en Belgique et sa formation postgraduée en Suisse et en Israël (trauma fellowship à Jérusalem), ce qui enrichit sa pratique d'une profonde ", highlight: "ouverture multiculturelle", text2: "." },
+          { text: "« Je crois en une ", bold: "médecine intégrative", text2: " fondée sur la préservation d'une parfaite santé à tous les niveaux : physique, psychologique et social. »" }
         ],
         bullets: [
           { label: "Intérêts", text: "Santé de la femme, soins de santé communautaires et accompagnement des populations sous-représentées." },
-          { label: "Engagement", text: "MedFem, Onesimus, FeminEM, AfCEM." },
-          { label: "Valeurs", text: "Inclusion, santé holistique, médecine personnalisée, flexibilité, respect et écoute." }
+          { label: "Engagement communautaire", text: "MedFem, Onesimus, FeminEM, AfCEM." },
+          { label: "Valeurs", text: "Inclusion, Santé holistique, Médecine personnalisée, flexibilité, respect et écoute." }
         ]
       },
       en: {
         paragraphs: [
-          { text: "Former Head of Clinic at ", bold: "HUG", text2: " and currently Consultant Doctor in the HUG emergency department, Dr. Eva Niyibizi holds a dual specialization in internal medicine and emergency medicine." },
-          { text: "She has ", highlight: "more than 10 years of experience", text2: " acquired at HUG and has also worked at Clinique La Colline. She completed part of her training internationally (trauma fellowship in Jerusalem)." }
+          { text: "Dr. Eva Niyibizi holds a dual specialization in ", highlight: "general internal medicine", text2: " and emergency medicine." },
+          { text: "Former Head of Clinic at HUG and currently Consultant Doctor in the HUG emergency department, she has over 10 years of clinical experience, having also worked at Clinique La Colline." },
+          { text: "Born in Rwanda, she grew up in Belgium and the United States. She completed her medical studies in Belgium and her postgraduate training in Switzerland and Israel (trauma fellowship in Jerusalem), enriching her practice with a deep ", highlight: "multicultural perspective", text2: "." },
+          { text: "« I believe in ", bold: "integrative medicine", text2: " based on the preservation of perfect health at all levels: physical, psychological, and social. »" }
         ],
         bullets: [
           { label: "Interests", text: "Women’s health, community healthcare, and underrepresented populations." },
-          { label: "Engagement", text: "MedFem, Onesimus, FeminEM, AfCEM." },
-          { label: "Values", text: "Inclusion, holistic health, personalized medicine, flexibility, respect, and attentive listening." }
+          { label: "Community engagement", text: "MedFem, Onesimus, FeminEM, AfCEM." },
+          { label: "Values", text: "Inclusion, Holistic health, Personalized medicine, flexibility, respect, and active listening." }
         ]
       }
     },

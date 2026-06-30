@@ -15,6 +15,7 @@ const BookingWizard = ({ doctors, user, onClose, lang, preselectedDoctorId }) =>
   
   // Já iniciamos o estado com a médica encontrada
   const [selectedDoc, setSelectedDoc] = useState(initialDoctor);
+  const [isLoadingWidget, setIsLoadingWidget] = useState(true);
 
   // ... mantenha o resto do seu código igual daqui para baixo
 
@@ -82,15 +83,26 @@ const BookingWizard = ({ doctors, user, onClose, lang, preselectedDoctorId }) =>
           <div className="flex flex-col items-center w-full mt-4 max-w-2xl mx-auto">
              
              {/* O iframe só aparece se a médica aceitar OneDoc */}
-             {/* O iframe só aparece se a médica aceitar OneDoc */}
              {selectedDoc.bookingMethod === 'onedoc_or_phone' && (
-               <div className="w-full rounded-xl border border-gray-200 overflow-hidden mb-6 bg-white shadow-sm">
+               <div className="w-full bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative min-h-[500px] mb-6">
+                 
+                 {/* SPINNER DE CARREGAMENTO (Fica por cima enquanto carrega) */}
+                 {isLoadingWidget && (
+                   <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50/80 z-10">
+                     <div className="w-10 h-10 border-4 border-gray-200 border-t-[#299E74] rounded-full animate-spin mb-3"></div>
+                      <span className="text-sm font-medium text-gray-500 animate-pulse">
+                        {lang === 'fr' ? "Un instant, nous affichons les disponibilités..." : "One moment, loading availability..."}
+                      </span>
+                   </div>
+                 )}
+
                   <iframe 
-                    className="od-widget" 
+                    className={`od-widget w-full transition-opacity duration-700 ${isLoadingWidget ? 'opacity-0' : 'opacity-100'}`} 
                     id={`od-widget-${selectedDoc.widgetId || '5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd'}`} 
                     src={`https://www.onedoc.ch/fr/widget/${selectedDoc.widgetId || '5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd'}`} 
                     frameBorder="0" 
-                    style={{ width: '100%', height: '420px' }}
+                    style={{ minHeight: '500px' }}
+                    onLoad={() => setIsLoadingWidget(false)}
                   ></iframe>
                </div>
              )}

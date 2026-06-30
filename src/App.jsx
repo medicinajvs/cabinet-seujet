@@ -43,19 +43,17 @@ const App = () => {
   const [showBookingModal, setShowBookingModal] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [showProfileEdit, setShowProfileEdit] = useState(false);
-  const [selectedDoctorId, setSelectedDoctorId] = useState(null); // Novo estado
+  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
   const [showLoading, setShowLoading] = useState(true);
-  // Sistema Global de Notificações (Toast)
+
   const [toast, setToast] = useState({ visible: false, message: '', type: 'success' });
   
   const showToast = (message, type = 'success') => {
     setToast({ visible: true, message, type });
-    // Esconde automaticamente após 3.5 segundos
     setTimeout(() => setToast(prev => ({ ...prev, visible: false })), 3500);
   };
   const [openBios, setOpenBios] = useState({}); 
 
-  // Novas opções do menu
   const menuOptions = [
     { id: 'home', label: t.nav?.home || 'Accueil' },
     { id: 'mission', label: t.nav?.mission || 'Mission' },
@@ -114,10 +112,7 @@ const App = () => {
         setUser(currentUser);
         if (currentUser && !currentUser.isAnonymous) {
             try {
-              // 1. Pegamos o token de segurança do paciente ao carregar o site
               const token = await currentUser.getIdToken(); 
-              
-              // 2. Enviamos o token para a API autorizar a leitura do perfil
               const res = await fetch(`${CLOUDFLARE_API_URL}/users/${currentUser.uid}`, {
                 headers: {
                   'Authorization': `Bearer ${token}`
@@ -178,16 +173,25 @@ const App = () => {
   };
 
   const DoctorCard = ({ doc }) => (
-    <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col hover:border-[#2B7A5F]">
+    <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition duration-300 flex flex-col hover:border-[#16679B]">
       <div className="h-64 overflow-hidden relative group">
           <img src={doc.image} alt={doc.name} className="w-full h-full object-cover transition duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition"></div>
       </div>
       <div className="p-6 flex-1 flex flex-col">
-        <h3 className="text-xl font-bold text-[#2B7A5F]">{doc.name}</h3>
+        <h3 className="text-xl font-bold text-[#16679B]">{doc.name}</h3>
         
-        {doc.role && <p className="text-[#2B7A5F] font-medium text-[11px] uppercase tracking-wide mb-1 leading-tight">{doc.role}</p>}
-        {getText(doc.specialty) && <p className="text-gray-500 font-bold text-sm mb-2">{getText(doc.specialty)}</p>}
+        {doc.role && <p className="text-[#16679B] font-medium text-[11px] uppercase tracking-wide mb-1 leading-tight">{doc.role}</p>}
+        
+        {/* Renderização condicional para quebrar as especialidades por linhas */}
+        {getText(doc.specialty) && (
+          <div className="text-gray-500 font-bold text-sm mb-2 leading-snug">
+             {getText(doc.specialty).split('|').map((line, idx) => (
+                <span key={idx} className="block mb-0.5">{line.trim()}</span>
+             ))}
+          </div>
+        )}
+
         {getText(doc.description) && <p className="text-gray-500 text-xs mb-4 line-clamp-4 leading-relaxed">{getText(doc.description)}</p>}
         
         {doc.languages && doc.languages.length > 0 && (
@@ -199,7 +203,7 @@ const App = () => {
         )}
 
         <div className="mt-auto pt-4 border-t border-gray-100">
-            <button onClick={() => toggleBio(doc.id)} className="flex items-center justify-between w-full text-sm font-bold text-gray-700 hover:text-[#2B7A5F] mb-3">
+            <button onClick={() => toggleBio(doc.id)} className="flex items-center justify-between w-full text-sm font-bold text-gray-700 hover:text-[#299E74] mb-3">
                {t.doctors.bio}
                {openBios[doc.id] ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </button>
@@ -210,8 +214,8 @@ const App = () => {
                        {doc.richBio[lang].paragraphs.map((p, idx) => (
                           <p key={idx} className="text-sm text-gray-700 leading-relaxed mb-4 last:mb-0">
                              {p.text}
-                             {p.bold && <strong className="font-bold text-[#1D352B]">{p.bold}</strong>}
-                             {p.highlight && <span className="bg-[#E8F3F0] text-[#2B7A5F] font-semibold px-2 py-0.5 rounded-md mx-0.5">{p.highlight}</span>}
+                             {p.bold && <strong className="font-bold text-[#16679B]">{p.bold}</strong>}
+                             {p.highlight && <span className="bg-[#16679B]/10 text-[#16679B] font-semibold px-2 py-0.5 rounded-md mx-0.5">{p.highlight}</span>}
                              {p.text2}
                           </p>
                        ))}
@@ -222,9 +226,9 @@ const App = () => {
                              <ul className="space-y-3">
                                 {doc.richBio[lang].bullets.map((b, idx) => (
                                    <li key={idx} className="flex items-start gap-2.5 text-sm text-gray-700 leading-relaxed">
-                                      <div className="w-1.5 h-1.5 rounded-full bg-[#2B7A5F] mt-2 shrink-0"></div>
+                                      <div className="w-1.5 h-1.5 rounded-full bg-[#299E74] mt-2 shrink-0"></div>
                                       <span>
-                                         <strong className="font-bold text-[#1D352B]">{b.label} : </strong>
+                                         <strong className="font-bold text-[#16679B]">{b.label}: </strong>
                                          {b.text}
                                       </span>
                                    </li>
@@ -242,7 +246,7 @@ const App = () => {
             )}
             
             {doc.bookable && (
-                <button onClick={() => { setSelectedDoctorId(doc.id); setShowBookingModal(true); }} className="w-full bg-[#2B7A5F] text-white py-2.5 rounded-lg text-sm font-bold hover:bg-[#245F4B] transition shadow-sm">
+                <button onClick={() => { setSelectedDoctorId(doc.id); setShowBookingModal(true); }} className="w-full bg-[#299E74] text-white py-2.5 rounded-lg text-sm font-bold hover:bg-[#20805D] transition shadow-sm">
                     {t.doctors.book}
                 </button>
             )}
@@ -253,7 +257,6 @@ const App = () => {
 
   return (
     <>
-      {/* Nova tela de carregamento sobreposta */}
       {showLoading && <LoadingScreen onFinish={() => setShowLoading(false)} />}
       
       <div className={`font-sans text-gray-700 relative h-full transition-colors duration-1000 ease-in-out bg-white`}>
@@ -282,9 +285,9 @@ const App = () => {
         <Modal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} title={authMode === 'login' ? "Connexion" : "Compte"}>
             <form onSubmit={handleAuth} className="space-y-4">
               {authError && <div className="text-red-500 text-sm">{authError}</div>}
-              <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#2B7A5F] focus:ring-1 focus:ring-[#A8E6CF]"/>
-              <input type="password" placeholder="Mot de passe" value={password} onChange={e=>setPassword(e.target.value)} className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#2B7A5F] focus:ring-1 focus:ring-[#A8E6CF]"/>
-              <button type="submit" className="w-full bg-[#2B7A5F] text-white py-3 rounded font-bold hover:bg-[#245F4B] transition shadow">Entrer</button>
+              <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#16679B] focus:ring-1 focus:ring-[#299E74]/50"/>
+              <input type="password" placeholder="Mot de passe" value={password} onChange={e=>setPassword(e.target.value)} className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-[#16679B] focus:ring-1 focus:ring-[#299E74]/50"/>
+              <button type="submit" className="w-full bg-[#299E74] text-white py-3 rounded font-bold hover:bg-[#20805D] transition shadow">Entrer</button>
               
               <button type="button" onClick={() => signInWithPopup(auth, googleProvider).then(onLoginSuccess)} className="w-full border p-3 rounded flex justify-center items-center gap-3 hover:bg-gray-50 bg-white transition shadow-sm">
                   <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
@@ -292,8 +295,8 @@ const App = () => {
               </button>
 
               <div className="text-center text-sm space-y-2 mt-4">
-                {authMode === 'login' && <button type="button" onClick={() => setAuthMode('signup')} className="text-[#2B7A5F] font-bold hover:underline">S'inscrire</button>}
-                {authMode === 'signup' && <button type="button" onClick={() => setAuthMode('login')} className="text-[#2B7A5F] font-bold hover:underline">Se connecter</button>}
+                {authMode === 'login' && <button type="button" onClick={() => setAuthMode('signup')} className="text-[#16679B] font-bold hover:underline">S'inscrire</button>}
+                {authMode === 'signup' && <button type="button" onClick={() => setAuthMode('login')} className="text-[#16679B] font-bold hover:underline">Se connecter</button>}
               </div>
             </form>
         </Modal>
@@ -311,35 +314,32 @@ const App = () => {
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                   <div className="flex justify-between items-center">
                     
-                    {/* Nome da Clínica */}
                     <div className="flex items-center gap-3">
-                      <span className={`text-xl md:text-2xl font-serif font-bold drop-shadow-sm ${scrolled || isMenuOpen ? 'text-[#2B7A5F]' : 'text-white'}`}>
+                      <span className={`text-xl md:text-2xl font-serif font-bold drop-shadow-sm ${scrolled || isMenuOpen ? 'text-[#16679B]' : 'text-white'}`}>
                         Cabinet Médical
                       </span>
                     </div>
 
-                    {/* Menu Desktop Expandido */}
                     <nav className="hidden md:flex items-center gap-6 lg:gap-8">
                       {menuOptions.map(item => (
                           <a key={item.id} href={`#${item.id}`} 
                             className={`font-semibold text-sm uppercase tracking-wider transition-colors 
-                            ${scrolled || isMenuOpen ? 'text-gray-800 hover:text-[#2B7A5F]' : 'text-white hover:text-gray-200 drop-shadow-md'}`}>
+                            ${scrolled || isMenuOpen ? 'text-gray-800 hover:text-[#299E74]' : 'text-white hover:text-gray-200 drop-shadow-md'}`}>
                             {item.label}
                           </a>
                       ))}
                     </nav>
 
-                    {/* Controles da Direita (Idioma, Login, Menu Mobile) */}
                     <div className="flex items-center gap-4 md:gap-6">
                         
                         <div className={`hidden md:flex items-center gap-2 font-medium text-sm ${scrolled || isMenuOpen ? 'text-gray-700' : 'text-white'}`}>
-                            <button onClick={() => setLang('fr')} className={`px-2 py-1 rounded transition ${lang === 'fr' ? (scrolled || isMenuOpen ? 'text-[#2B7A5F] font-bold bg-[#2B7A5F]/15' : 'text-white font-bold bg-white/20') : (scrolled || isMenuOpen ? 'text-gray-500 hover:bg-gray-100' : 'hover:bg-white/10')}`}>FR</button>
+                            <button onClick={() => setLang('fr')} className={`px-2 py-1 rounded transition ${lang === 'fr' ? (scrolled || isMenuOpen ? 'text-[#16679B] font-bold bg-[#16679B]/10' : 'text-white font-bold bg-white/20') : (scrolled || isMenuOpen ? 'text-gray-500 hover:bg-gray-100' : 'hover:bg-white/10')}`}>FR</button>
                             <span className={scrolled || isMenuOpen ? "text-gray-300" : "text-white/50"}>|</span>
-                            <button onClick={() => setLang('en')} className={`px-2 py-1 rounded transition ${lang === 'en' ? (scrolled || isMenuOpen ? 'text-[#2B7A5F] font-bold bg-[#2B7A5F]/15' : 'text-white font-bold bg-white/20') : (scrolled || isMenuOpen ? 'text-gray-500 hover:bg-gray-100' : 'hover:bg-white/10')}`}>EN</button>
+                            <button onClick={() => setLang('en')} className={`px-2 py-1 rounded transition ${lang === 'en' ? (scrolled || isMenuOpen ? 'text-[#16679B] font-bold bg-[#16679B]/10' : 'text-white font-bold bg-white/20') : (scrolled || isMenuOpen ? 'text-gray-500 hover:bg-gray-100' : 'hover:bg-white/10')}`}>EN</button>
                         </div>
 
                         {user ? (
-                            <button onClick={() => setShowDashboard(true)} className="hidden md:flex items-center gap-2 font-bold text-[#2B7A5F] bg-white pr-4 pl-2 py-1.5 rounded-full shadow-sm hover:shadow-md transition border border-gray-100">
+                            <button onClick={() => setShowDashboard(true)} className="hidden md:flex items-center gap-2 font-bold text-[#16679B] bg-white pr-4 pl-2 py-1.5 rounded-full shadow-sm hover:shadow-md transition border border-gray-100">
                               {user?.photoURL || userData?.photoURL ? (
                                 <img src={user.photoURL || userData.photoURL} alt="Profil" className="w-7 h-7 rounded-full object-cover" />
                               ) : (
@@ -348,16 +348,16 @@ const App = () => {
                               <span>{t.nav.mySpace}</span>
                             </button>
                         ) : (
-                            <button onClick={() => { setAuthMode('login'); setShowAuthModal(true); }} className={`hidden md:block font-bold text-sm transition px-5 py-2 rounded-full shadow-sm ${scrolled || isMenuOpen ? 'bg-[#2B7A5F] text-white hover:bg-[#245F4B]' : 'bg-white text-[#2B7A5F] hover:bg-gray-100'}`}>{t.nav?.login || "Connexion"}</button>
+                            <button onClick={() => { setAuthMode('login'); setShowAuthModal(true); }} className={`hidden md:block font-bold text-sm transition px-5 py-2 rounded-full shadow-sm ${scrolled || isMenuOpen ? 'bg-[#299E74] text-white hover:bg-[#20805D]' : 'bg-white text-[#299E74] hover:bg-gray-100'}`}>{t.nav?.login || "Connexion"}</button>
                         )}
 
                         <div className="md:hidden flex items-center gap-4">
                           {!user ? (
-                              <button onClick={() => setShowAuthModal(true)} className={`font-bold text-sm ${scrolled || isMenuOpen ? 'text-[#2B7A5F]' : 'text-white drop-shadow-md'}`}>
+                              <button onClick={() => setShowAuthModal(true)} className={`font-bold text-sm ${scrolled || isMenuOpen ? 'text-[#16679B]' : 'text-white drop-shadow-md'}`}>
                                 {t.nav?.login || "Connexion"}
                               </button>
                           ) : (
-                              <button onClick={() => setShowDashboard(true)} className={`font-bold text-sm flex items-center gap-2 ${scrolled || isMenuOpen ? 'text-[#2B7A5F]' : 'text-white drop-shadow-md'}`}>
+                              <button onClick={() => setShowDashboard(true)} className={`font-bold text-sm flex items-center gap-2 ${scrolled || isMenuOpen ? 'text-[#16679B]' : 'text-white drop-shadow-md'}`}>
                                 {user?.photoURL || userData?.photoURL ? (
                                   <img src={user.photoURL || userData.photoURL} alt="Profil" className="w-6 h-6 rounded-full object-cover border border-white/50" />
                                 ) : (
@@ -375,22 +375,21 @@ const App = () => {
                   </div>
                 </div>
 
-                {/* Menu Mobile Expandido */}
                 <div className={`md:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-gray-100 overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
                   <div className="flex flex-col items-center space-y-6 py-8 px-6 text-gray-800">
                     
                     {menuOptions.map(item => (
                         <a key={item.id} href={`#${item.id}`} 
-                          className="text-lg font-medium hover:text-[#2B7A5F] transition" 
+                          className="text-lg font-medium hover:text-[#299E74] transition" 
                           onClick={() => setIsMenuOpen(false)}>
                           {item.label}
                         </a>
                     ))}
                     
                     <div className="flex items-center gap-4 pt-4 border-t border-gray-100 w-full justify-center">
-                        <button onClick={() => setLang('fr')} className={`px-4 py-2 rounded-lg font-bold transition-colors ${lang === 'fr' ? 'bg-[#2B7A5F]/15 text-[#2B7A5F]' : 'text-gray-500 hover:bg-gray-50'}`}>FR</button>
+                        <button onClick={() => setLang('fr')} className={`px-4 py-2 rounded-lg font-bold transition-colors ${lang === 'fr' ? 'bg-[#16679B]/10 text-[#16679B]' : 'text-gray-500 hover:bg-gray-50'}`}>FR</button>
                         <span className="text-gray-300">|</span>
-                        <button onClick={() => setLang('en')} className={`px-4 py-2 rounded-lg font-bold transition-colors ${lang === 'en' ? 'bg-[#2B7A5F]/15 text-[#2B7A5F]' : 'text-gray-500 hover:bg-gray-50'}`}>EN</button>
+                        <button onClick={() => setLang('en')} className={`px-4 py-2 rounded-lg font-bold transition-colors ${lang === 'en' ? 'bg-[#16679B]/10 text-[#16679B]' : 'text-gray-500 hover:bg-gray-50'}`}>EN</button>
                     </div>
                   </div>
                 </div>
@@ -400,7 +399,7 @@ const App = () => {
               {heroSlides.map((slide, index) => (
                 <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${currentHeroSlide === index ? 'opacity-100 pointer-events-auto z-10' : 'opacity-0 pointer-events-none z-0'}`}>
                   {slide.type === 'rubric' ? (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#2B7A5F] p-6">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#16679B] p-6">
                       <div className="text-center w-full max-w-4xl mt-10 md:mt-0">
                         <p className="text-sm md:text-base uppercase tracking-[0.35em] text-white/80 font-semibold mb-4">
                           Cabinet Médical
@@ -425,7 +424,7 @@ const App = () => {
 
                         <button
                           onClick={() => setShowBookingModal(true)}
-                          className="mt-8 bg-white text-[#2B7A5F] border border-white px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition shadow-xl"
+                          className="mt-8 bg-[#299E74] text-white border-none px-8 py-3 rounded-full font-bold hover:bg-[#20805D] transition shadow-xl"
                         >
                           {t.hero.cta}
                         </button>
@@ -438,7 +437,7 @@ const App = () => {
                           <div className="max-w-3xl mt-10 md:mt-0">
                             {slide.title && <h2 className="text-4xl md:text-6xl font-bold mb-4 font-serif drop-shadow-lg">{slide.title}</h2>}
                             {slide.subtitle && <p className="text-xl md:text-3xl mx-auto font-medium leading-relaxed drop-shadow-md mb-8">{slide.subtitle}</p>}
-                            <button onClick={() => setShowBookingModal(true)} className="bg-[#2B7A5F] text-white px-8 py-3 rounded-full font-bold hover:bg-[#245F4B] transition shadow-xl">{t.hero.cta}</button>
+                            <button onClick={() => setShowBookingModal(true)} className="bg-[#299E74] text-white px-8 py-3 rounded-full font-bold hover:bg-[#20805D] transition shadow-xl">{t.hero.cta}</button>
                           </div>
                       </div>
                     </div>
@@ -466,22 +465,22 @@ const App = () => {
                     <div className="grid md:grid-cols-3 gap-8 items-stretch">
                         
                         <div className="md:col-span-2 bg-gray-50 rounded-2xl p-8 md:p-10 shadow-sm border border-gray-100 flex flex-col h-full">
-                            <h3 className="text-xl font-bold text-[#2B7A5F] mb-4 flex items-center gap-2"><BookOpen/> {t.sections.teaching}</h3>
+                            <h3 className="text-xl font-bold text-[#16679B] mb-4 flex items-center gap-2"><BookOpen/> {t.sections.teaching}</h3>
                             
                             <p className="text-gray-700 leading-relaxed text-lg mb-8 max-w-xl">
                                 {getText(TEACHING_INFO.description)}
                             </p>
                             
                             <div className="flex flex-col sm:flex-row gap-4 mt-auto">
-                                <div className="bg-[#2B7A5F] text-white px-6 py-5 rounded-xl shadow font-bold text-center flex-1 flex flex-col justify-center items-center border border-[#2B7A5F]">
+                                <div className="bg-[#16679B] text-white px-6 py-5 rounded-xl shadow font-bold text-center flex-1 flex flex-col justify-center items-center border border-[#16679B]">
                                     <span className="block text-base">Médecin en formation</span>
                                     <span className="block text-lg text-white/90 mt-1">postgraduée</span>
                                 </div>
                                 <div className="flex flex-col gap-4 flex-1">
-                                    <div className="bg-[#2B7A5F] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#2B7A5F] text-sm flex-1 flex items-center justify-center">
+                                    <div className="bg-[#16679B] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#16679B] text-sm flex-1 flex items-center justify-center">
                                         étudiant 3ème année Master
                                     </div>
-                                    <div className="bg-[#2B7A5F] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#2B7A5F] text-sm flex-1 flex items-center justify-center">
+                                    <div className="bg-[#16679B] text-white px-4 py-3 rounded-xl shadow font-bold text-center border border-[#16679B] text-sm flex-1 flex items-center justify-center">
                                         étudiant 2ème année Bachelor
                                     </div>
                                 </div>
@@ -489,7 +488,7 @@ const App = () => {
                         </div>
                         
                         <div className="md:col-span-1 bg-white rounded-2xl p-8 shadow-sm border border-gray-100 flex flex-col justify-center items-center text-center h-full">
-                            <h3 className="text-xl font-bold text-[#2B7A5F] mb-6 flex items-center justify-center gap-2"><Heart/> {t.sections.community}</h3>
+                            <h3 className="text-xl font-bold text-[#16679B] mb-6 flex items-center justify-center gap-2"><Heart/> {t.sections.community}</h3>
                             <span className="bg-gray-800 text-white px-8 py-3 rounded-lg font-bold text-sm shadow-md border border-gray-700 w-full hover:bg-gray-700 transition">Réseau MEDIX</span>
                         </div>
                         
@@ -500,12 +499,12 @@ const App = () => {
             <section id="team" className="py-20 bg-gray-50">
               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                 <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-[#2B7A5F] mb-2">{t.doctors.title}</h2>
-                    <div className="w-20 h-1 bg-gray-300 mx-auto"></div>
+                    <h2 className="text-3xl font-bold text-[#16679B] mb-2">{t.doctors.title}</h2>
+                    <div className="w-20 h-1 bg-[#299E74] mx-auto"></div>
                 </div>
                 
                 <div className="max-w-3xl mx-auto mb-12 bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row items-center justify-center gap-3 text-center text-gray-700 font-medium">
-                    <Globe className="text-[#2B7A5F]" size={24} />
+                    <Globe className="text-[#16679B]" size={24} />
                     <span>{t.sections.multilingual}: Français, English, Português, Hebrew, Română, Kinyarwanda</span>
                 </div>
 
@@ -517,11 +516,11 @@ const App = () => {
 
             <section id="clinic" className="pt-20 pb-8 bg-white">
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
-                    <h2 className="text-3xl font-bold text-center text-[#2B7A5F] mb-16">{t.sections.services}</h2>
+                    <h2 className="text-3xl font-bold text-center text-[#16679B] mb-16">{t.sections.services}</h2>
                     <div className="grid md:grid-cols-3 gap-8 mb-20">
                         {DEFAULT_SERVICES.map((s, i) => (
-                            <div key={i} className="p-6 border border-gray-100 rounded-xl hover:border-[#2B7A5F] transition group bg-white shadow-sm flex flex-col items-center text-center md:items-start md:text-left">
-                                <div className="w-12 h-12 bg-[#2B7A5F]/10 rounded-full flex items-center justify-center text-[#2B7A5F] mb-4 group-hover:bg-[#2B7A5F] group-hover:text-white transition">
+                            <div key={i} className="p-6 border border-gray-100 rounded-xl hover:border-[#299E74] transition group bg-white shadow-sm flex flex-col items-center text-center md:items-start md:text-left">
+                                <div className="w-12 h-12 bg-[#16679B]/10 rounded-full flex items-center justify-center text-[#16679B] mb-4 group-hover:bg-[#16679B] group-hover:text-white transition">
                                     <IconMapper type={s.iconType} />
                                 </div>
                                 <h4 className="font-bold text-lg mb-2 text-gray-800">{getText(s.title)}</h4>
@@ -533,27 +532,27 @@ const App = () => {
                     <div className="grid md:grid-cols-2 gap-12">
                         <div className="space-y-8">
                             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center md:items-start text-center md:text-left">
-                                <h3 className="font-bold text-xl text-[#2B7A5F] border-b border-gray-200 pb-3 mb-6 flex items-center justify-center md:justify-start gap-2 w-full">
+                                <h3 className="font-bold text-xl text-[#16679B] border-b border-gray-200 pb-3 mb-6 flex items-center justify-center md:justify-start gap-2 w-full">
                                   <Monitor size={24}/> {t.sections.equipment}
                                 </h3>
                                 <ul className="space-y-4 w-full">
                                     {TECHNICAL_PLATFORM.equipment.map((eq, i) => (
                                         <li key={i} className="flex flex-col md:flex-row items-center md:items-start justify-center md:justify-start gap-3 text-gray-700 bg-white p-4 rounded-lg border border-gray-100 shadow-sm text-sm">
-                                          <Activity size={20} className="text-[#2B7A5F] flex-shrink-0 mb-1 md:mb-0"/> 
+                                          <Activity size={20} className="text-[#299E74] flex-shrink-0 mb-1 md:mb-0"/> 
                                           <span>{getText(eq)}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
                             <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 flex flex-col items-center md:items-start text-center md:text-left">
-                                <h3 className="font-bold text-xl text-[#2B7A5F] border-b border-gray-200 pb-3 mb-6 flex items-center justify-center md:justify-start gap-3 w-full">
+                                <h3 className="font-bold text-xl text-[#16679B] border-b border-gray-200 pb-3 mb-6 flex items-center justify-center md:justify-start gap-3 w-full">
                                   <CheckCircle size={24} className="shrink-0"/> 
                                   <span className="leading-tight">{t.sections.care}</span>
                                 </h3>
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                                     {TECHNICAL_PLATFORM.careRoom.map((cr, i) => (
                                         <li key={i} className="flex items-center justify-center md:justify-start gap-2 text-gray-700 text-sm">
-                                          <div className="w-1.5 h-1.5 rounded-full bg-[#2B7A5F]"></div> <span>{getText(cr)}</span>
+                                          <div className="w-1.5 h-1.5 rounded-full bg-[#299E74]"></div> <span>{getText(cr)}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -569,47 +568,60 @@ const App = () => {
                 </div>
             </section>
 
-            {/* SESSÃO: OneDoc Centralizado */}
-              <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
+            <section id="infos" className="py-20 bg-gray-50 border-t border-gray-100">
                 <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex flex-col items-center">
                   
                   <div className="text-center mb-10">
-                    <h2 className="text-3xl font-bold text-[#2B7A5F] mb-4">Prendre Rendez-vous</h2>
+                    <h2 className="text-3xl font-bold text-[#16679B] mb-4">Prendre Rendez-vous</h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">
                       {getText(clinicData?.bookingInfo)}
                     </p>
                   </div>
 
-                  {/* Card do Widget OneDoc (Atualizado para Dre. Rabetokotany) */}
-                  <div className="w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col items-center p-2 md:p-6">
-                      <iframe 
-                          className="od-widget rounded-xl" 
-                          id="od-widget-3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
-                          src="https://www.onedoc.ch/fr/widget/3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
-                          frameBorder="0" 
-                          style={{ width: '100%', maxWidth: '1024px', height: '450px' }}
-                      ></iframe>
-                  </div>
+                  {/* Agendas lado a lado conforme solicitado */}
+                  <div className="grid lg:grid-cols-2 gap-8 w-full max-w-6xl">
+                      
+                      {/* Widget Dra. Eva Niyibizi */}
+                      <div className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col items-center p-2 md:p-6">
+                          <h3 className="font-bold text-xl text-[#16679B] mb-4 text-center">Dre. Eva Niyibizi</h3>
+                          <iframe 
+                              className="od-widget rounded-xl" 
+                              id="od-widget-5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                              src="https://www.onedoc.ch/fr/widget/5116f8a336222bcee069680dff50ad796defc8ad2046ca0fdfc519223d2185bd" 
+                              frameBorder="0" 
+                              style={{ width: '100%', maxWidth: '1024px', height: '450px' }}
+                          ></iframe>
+                      </div>
 
+                      {/* Widget Dra. Carole Rabetokotany */}
+                      <div className="w-full bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden flex flex-col items-center p-2 md:p-6">
+                          <h3 className="font-bold text-xl text-[#16679B] mb-4 text-center">Dre. Carole Rabetokotany</h3>
+                          <iframe 
+                              className="od-widget rounded-xl" 
+                              id="od-widget-3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
+                              src="https://www.onedoc.ch/fr/widget/3258cd330eb7a7f5a6bf944ac1f5e4f3828a34325c42a1a1384a4af6f51e854d" 
+                              frameBorder="0" 
+                              style={{ width: '100%', maxWidth: '1024px', height: '450px' }}
+                          ></iframe>
+                      </div>
+
+                  </div>
                 </div>
             </section>
 
             <footer id="contact" className="bg-[#f8f9fa] pt-16 pb-16 w-full max-w-full overflow-hidden border-t border-gray-200">
               <div className="w-full max-w-[1440px] mx-auto px-6 lg:px-12">
                 
-                {/* Grid ajustado: 12 colunas para controle preciso das larguras */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
                   
-                  {/* Coluna 1: Contato e Endereço */}
                   <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-3">
-                    <h3 className="text-2xl font-serif font-bold mb-6 text-[#2B7A5F]">Cabinet Médical</h3>
+                    <h3 className="text-2xl font-serif font-bold mb-6 text-[#16679B]">Cabinet Médical</h3>
                     
-                    {/* Trocamos flex-grow/justify-between por space-y-5 para fixar a distância idêntica à do bloco 2 */}
                     <div className="flex flex-col space-y-5 w-full items-center lg:items-start">
                       <p className="text-gray-600">{clinicData?.address}</p>
                       
-                      <a href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-gray-900 font-bold text-lg hover:text-[#2B7A5F] transition-colors">
-                        <Phone size={18} className="text-[#2B7A5F]" /> {clinicData?.phone}
+                      <a href={`tel:${clinicData?.phone?.replace(/\s/g, '')}`} className="flex items-center gap-2 text-gray-900 font-bold text-lg hover:text-[#299E74] transition-colors">
+                        <Phone size={18} className="text-[#16679B]" /> {clinicData?.phone}
                       </a>
                       
                       <div 
@@ -617,37 +629,35 @@ const App = () => {
                           navigator.clipboard.writeText(clinicData?.fax);
                           showToast("Numéro de fax copié !", "success");
                         }}
-                        className="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#2B7A5F] transition-colors group"
+                        className="flex items-center gap-2 text-gray-600 cursor-pointer hover:text-[#299E74] transition-colors group"
                         title="Copier le fax"
                       >
-                        <Printer size={18} className="text-[#2B7A5F]" /> 
+                        <Printer size={18} className="text-[#16679B]" /> 
                         <span>Fax: {clinicData?.fax}</span>
                         <Copy size={15} className="opacity-0 group-hover:opacity-100 transition-opacity text-gray-400" />
                       </div>
                       
-                      {/* Adicionado mt-1 apenas para dar um leve respiro extra antes do botão, mantendo o padrão da imagem */}
-                      <a href={`mailto:${clinicData?.email}`} className="inline-flex items-center gap-2 text-white bg-[#2B7A5F] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#245F4B] transition-colors shadow-sm w-fit mt-1">
+                      <a href={`mailto:${clinicData?.email}`} className="inline-flex items-center gap-2 text-white bg-[#299E74] px-5 py-2.5 rounded-lg text-sm font-bold hover:bg-[#20805D] transition-colors shadow-sm w-fit mt-1">
                         <Mail size={16} /> {clinicData?.email}
                       </a>
                     </div>
                   </div>
                   
-                  {/* Coluna 2: Informações Práticas (Ocupa 4 das 12 colunas) */}
                   <div className="flex flex-col items-center lg:items-start text-center lg:text-left h-full lg:col-span-4">
-                    <h4 className="font-bold text-lg text-[#2B7A5F] mb-6">Informations Pratiques</h4>
+                    <h4 className="font-bold text-lg text-[#16679B] mb-6">Informations Pratiques</h4>
                     
                     <div className="flex flex-col flex-grow justify-between w-full">
                       <ul className="flex flex-col space-y-5 text-sm text-gray-600 w-full mb-6">
                         <li className="flex items-start justify-center lg:justify-start gap-3">
-                          <FlaskConical size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                          <FlaskConical size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span><strong>Laboratoires:</strong> {clinicData?.labPartners?.join(', ')}</span>
                         </li>
                         <li className="flex items-start justify-center lg:justify-start gap-3">
-                          <CreditCard size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                          <CreditCard size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span>{getText(clinicData?.paymentInfo)}</span>
                         </li>
                         <li className="flex items-start justify-center lg:justify-start gap-3">
-                          <Accessibility size={18} className="text-[#2B7A5F] shrink-0 mt-0.5" />
+                          <Accessibility size={18} className="text-[#16679B] shrink-0 mt-0.5" />
                           <span>{getText(clinicData?.accessibilityInfo)}</span>
                         </li>
                       </ul>
@@ -661,7 +671,6 @@ const App = () => {
                     </div>
                   </div>
 
-                  {/* Coluna 3: Mapa (Ocupa as 5 colunas restantes, garantindo um bom tamanho) */}
                   <div className="h-full min-h-[250px] lg:col-span-5 bg-gray-200 rounded-xl overflow-hidden shadow-sm">
                     <iframe 
                       src={clinicData?.mapEmbedUrl} 
@@ -680,9 +689,8 @@ const App = () => {
           </div>
         )}
 
-        {/* Toast Notification Global */}
         {toast.visible && (
-          <div className={`fixed bottom-8 right-8 z-[100] px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 animate-in slide-in-from-bottom-8 fade-in duration-300 ${toast.type === 'success' ? 'bg-[#2B7A5F] text-white' : 'bg-red-500 text-white'}`}>
+          <div className={`fixed bottom-8 right-8 z-[100] px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 animate-in slide-in-from-bottom-8 fade-in duration-300 ${toast.type === 'success' ? 'bg-[#299E74] text-white' : 'bg-red-500 text-white'}`}>
             {toast.type === 'success' ? <CheckCircle size={24} /> : <AlertCircle size={24} />}
             <span className="font-bold text-lg">{toast.message}</span>
           </div>
